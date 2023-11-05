@@ -3,7 +3,7 @@ import {FC} from "react";
 const Main: FC = () => {
   return (
       <>
-        <div>Main Page</div>
+        <main>main</main>
       </>
   );
 }

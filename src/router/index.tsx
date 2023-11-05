@@ -1,16 +1,24 @@
-import { createBrowserRouter } from "react-router-dom";
-import Main from "../pages/Main.tsx";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 import NotFound from "../pages/NotFound.tsx";
+import MainLayout from "../layout";
+import Main from "../pages/Main.tsx";
 
 export enum Routes {
-  MAIN= '/',
+  MAIN = "/flights-board",
 }
 
-const routes = [
+const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Main />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: Routes.MAIN,
+        element: <Main />,
+      },
+    ],
   },
+
   {
     path: "*",
     element: <NotFound />,
@@ -20,4 +28,3 @@ const routes = [
 export const router = createBrowserRouter(routes);
 
 export const routelist = routes.map((r) => r.path);
-
