@@ -75,7 +75,7 @@ const Main: FC = () => {
             )}
             <input
               {...register("date", {
-                ...requiredValidation
+                ...requiredValidation,
               })}
               className="p-inputtext p-component"
               type={"datetime-local"}
@@ -85,7 +85,7 @@ const Main: FC = () => {
           <label>
             exampleRequired
             <br />
-            {hookFormErrors.date && (
+            {hookFormErrors.exampleRequired && (
               <span className="invalid-validation">
                 Обязательно для заполнения
               </span>
@@ -94,14 +94,16 @@ const Main: FC = () => {
           </label>
 
           {hookFormErrors.myVal && (
-            <span className="invalid-validation">hahah</span>
+            <span className="invalid-validation">
+              {hookFormErrors.myVal.message}
+            </span>
           )}
           <InputText
             {...register("myVal", {
               validate: (value, b) => {
                 console.log("a", value);
                 console.log("b", b);
-                return value > 12;
+                return value < 12 ? "value < 12" : true;
               },
             })}
           />
