@@ -46,7 +46,7 @@ section {
   // .active {
   //   border-bottom: 1px solid red;
   // }
-  a{
+  a {
     text-decoration: none;
   }
   ul {
@@ -92,4 +92,10 @@ section {
   left: 0;
   top: 0;
   z-index: 997;
+}
+
+.invalid-validation {
+  color: #e24c4c;
+  font-size: 0.8rem;
+  line-height: 1.5rem;
 }

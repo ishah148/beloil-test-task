@@ -3,7 +3,7 @@ import { Formatter } from "../../utils/timeHelper.ts";
 import "./TimeBoard.scss";
 
 const TimeBoard: FC = () => {
-  const [time, setTime] = useState<string>("");
+  const [time, setTime] = useState<string>(Formatter.getTimeMMHH());
 
   useEffect(() => {
     const timer = setInterval(() => {

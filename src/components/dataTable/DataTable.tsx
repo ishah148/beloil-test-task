@@ -1,28 +1,19 @@
 import { useState, useEffect } from "react";
 import {
   DataTable,
-  DataTableSelectionChangeEvent,
-  DataTableSelectAllChangeEvent,
   DataTablePageEvent,
   DataTableSortEvent,
-  DataTableFilterEvent,
-  DataTableFilterMeta,
 } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { CustomerService } from "../../service/CustomerService.ts";
-import { InputText } from 'primereact/inputtext';
-import {Customer, LazyTableState} from "./DataTable.types.ts";
-
-
+import { InputText } from "primereact/inputtext";
+import { Customer, LazyTableState } from "./DataTable.types.ts";
 
 export default function LazyLoadDemo() {
   const [loading, setLoading] = useState<boolean>(false);
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [customers, setCustomers] = useState<Customer[]>([]);
-  const [selectAll, setSelectAll] = useState<boolean>(false);
-  const [selectedCustomers, setSelectedCustomers] = useState<Customer[] | null>(
-    null,
-  );
+
   const [lazyState, setLazyState] = useState<LazyTableState>({
     first: 0,
     rows: 10,
@@ -75,36 +66,17 @@ export default function LazyLoadDemo() {
     setLazyState(event as unknown as LazyTableState);
   };
 
-  const onFilter = (event: DataTableFilterEvent) => {
-    console.log("onFilter", event);
-    event["first"] = 0;
-    setLazyState(event as unknown as LazyTableState);
-  };
-
-  const onSelectionChange = (event: DataTableSelectionChangeEvent) => {
-    const value = event.value;
-
-    setSelectedCustomers(value);
-    setSelectAll(value.length === totalRecords);
-  };
-
   const textEditor = (options) => {
-    console.log("textEditor Options",options)
-    return <InputText type="text" value={options.value} onChange={(e: React.ChangeEvent<HTMLInputElement>) => options.editorCallback(e.target.value)} />;
-  };
-
-  const onSelectAllChange = (event: DataTableSelectAllChangeEvent) => {
-    const selectAll = event.checked;
-
-    if (selectAll) {
-      CustomerService.getCustomers().then((data) => {
-        setSelectAll(true);
-        setSelectedCustomers(data.customers);
-      });
-    } else {
-      setSelectAll(false);
-      setSelectedCustomers([]);
-    }
+    console.log("textEditor Options", options);
+    return (
+      <InputText
+        type="text"
+        value={options.value}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          options.editorCallback(e.target.value)
+        }
+      />
+    );
   };
 
   const representativeBodyTemplate = (rowData: Customer) => {
@@ -168,7 +140,8 @@ export default function LazyLoadDemo() {
           sortable
           filter
           filterPlaceholder="Search"
-          editor={(options) => textEditor(options)} style={{ width: '20%' }}
+          editor={(options) => textEditor(options)}
+          style={{ width: "20%" }}
         />
         <Column
           field="country.name"

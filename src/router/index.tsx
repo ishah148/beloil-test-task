@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import NotFound from "../pages/NotFound.tsx";
 import App from "../App.tsx";
-import Main from "../pages/FlightsBoard.tsx";
+import Main from "../pages/flightsBoard/FlightsBoard.tsx";
 import BookingBoard from "../pages/BookingBoard.tsx";
 
 export enum Routes {
