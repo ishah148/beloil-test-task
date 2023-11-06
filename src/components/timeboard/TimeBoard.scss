@@ -1,0 +1,15 @@
+.timeboard-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.time-container {
+  .time {
+    font-size: 2rem;
+  }
+}
+
+.today-container {
+}

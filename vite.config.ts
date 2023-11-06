@@ -7,10 +7,13 @@ export default defineConfig({
   plugins: [svgr(), react()],
   resolve: {
     alias: {
-      "@": "/src",
+      "@/*": "/src/*",
     },
   },
   css:{
+    devSourcemap:true,
+  },
+  scss:{
     devSourcemap:true,
   },
 });

@@ -1,5 +1,5 @@
 // import { describe, expect, test } from "@jest/globals";
-import { forTest } from "../composables/forTest.ts";
+import { forTest } from "../hooks/forTest.ts";
 
 describe("sum module", () => {
   test("good", () => {
