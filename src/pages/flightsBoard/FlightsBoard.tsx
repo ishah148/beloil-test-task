@@ -8,12 +8,23 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Validator } from "../../utils/validator.ts";
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  flightNo: string;
+  airline: string;
   myVal: string;
-  date: string;
+  city: string;
+  flightDate: string;
+  registrationDate: string;
+  seatsAmount: string;
+  notes: string;
+};
+
+const defaultValues = {
+  flightDate: new Date().toString(),
+  registrationDate: new Date().toString(),
+  notes:'hahaha'
 };
 
 const Main: FC = () => {
@@ -21,14 +32,14 @@ const Main: FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
+    getValues,
     formState: { errors: hookFormErrors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({defaultValues});
 
   const isSubmitBtnDisabled = Object.keys(hookFormErrors).length > 0;
 
-  const requiredValidation = {
+  const requiredValidationRule = {
     required: {
       value: true,
       message: "Обязательно для заполнения",
@@ -41,7 +52,7 @@ const Main: FC = () => {
   }
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log("data.date", new Date(data.date).getTime());
+    console.log("data.date", new Date(data.flightDate).getTime());
   };
 
   return (
@@ -59,23 +70,51 @@ const Main: FC = () => {
         headerText="Добавление рейса"
       >
         <form className="dialog-form" onSubmit={handleSubmit(onSubmit)}>
-          <InputText
-            placeholder="Номер рейса"
-            defaultValue=""
-            {...register("example")}
-          />
-
           <label>
-            Дата
+            Номер рейса
             <br />
-            {hookFormErrors.date && (
+            {hookFormErrors.flightNo && (
               <span className="invalid-validation">
-                {hookFormErrors.date.message}
+                {hookFormErrors.flightNo.message}
               </span>
             )}
             <input
-              {...register("date", {
-                ...requiredValidation,
+              {...register("flightNo", {
+                ...requiredValidationRule,
+              })}
+              className="p-inputtext p-component"
+              type={"text"}
+            />
+          </label>
+
+          <label>
+            Город (Аэропорт)
+            <br />
+            {hookFormErrors.city && (
+              <span className="invalid-validation">
+                {hookFormErrors.city.message}
+              </span>
+            )}
+            <input
+              {...register("city", {
+                ...requiredValidationRule,
+              })}
+              className="p-inputtext p-component"
+              type={"text"}
+            />
+          </label>
+
+          <label>
+            Дата и время вылета
+            <br />
+            {hookFormErrors.flightDate && (
+              <span className="invalid-validation">
+                {hookFormErrors.flightDate.message}
+              </span>
+            )}
+            <input
+              {...register("flightDate", {
+                ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
               type={"datetime-local"}
@@ -83,34 +122,80 @@ const Main: FC = () => {
           </label>
 
           <label>
-            exampleRequired
+            Авиакомпания
             <br />
-            {hookFormErrors.exampleRequired && (
+            {hookFormErrors.airline && (
               <span className="invalid-validation">
                 Обязательно для заполнения
               </span>
             )}
-            <InputText {...register("exampleRequired", { required: true })} />
+            <input
+              className="p-inputtext p-component"
+              {...register("airline", { ...requiredValidationRule })}
+            />
           </label>
 
-          {hookFormErrors.myVal && (
-            <span className="invalid-validation">
-              {hookFormErrors.myVal.message}
-            </span>
-          )}
-          <InputText
-            {...register("myVal", {
-              validate: (value, b) => {
-                console.log("a", value);
-                console.log("b", b);
-                return value < 12 ? "value < 12" : true;
-              },
-            })}
-          />
+          <label>
+            Дата и время регистрации
+            <br />
+            {hookFormErrors.registrationDate && (
+              <span className="invalid-validation">
+                {hookFormErrors.registrationDate.message}
+              </span>
+            )}
+            <input
+              className="p-inputtext p-component"
+              type={"datetime-local"}
+              {...register("registrationDate", {
+                ...requiredValidationRule,
+                validate: () =>
+                  Validator.validateRegisterDate(
+                    getValues("registrationDate"),
+                    getValues("flightDate"),
+                  ),
+              })}
+            />
+          </label>
+
+          <label>
+            Количество мест
+            <br />
+            {hookFormErrors.seatsAmount && (
+              <span className="invalid-validation">
+                {hookFormErrors.seatsAmount.message}
+              </span>
+            )}
+            <input
+              className="p-inputtext p-component"
+              {...register("seatsAmount", {
+                ...requiredValidationRule,
+                min: {
+                  value: 1,
+                  message: "Количество мест меньше 1",
+                },
+                max: {
+                  value: 99,
+                  message: "Количество мест превышает 99",
+                },
+              })}
+            />
+          </label>
+
+          <label>
+            Примечания
+            <br />
+            {hookFormErrors.notes && (
+              <span className="invalid-validation">
+                {hookFormErrors.notes.message}
+              </span>
+            )}
+            <input className="p-inputtext p-component" {...register("notes")} />
+          </label>
 
           <InputText
             type="submit"
             value="Создать"
+            className={"p-button text-center"}
             disabled={isSubmitBtnDisabled}
           />
         </form>
