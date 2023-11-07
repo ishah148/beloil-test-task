@@ -20,7 +20,6 @@ export class Validator {
   }
 
   static validateDate(date: string) {
-    console.log("debugger");
     if (isNaN(new Date(date).getTime())) {
       return "Введена некорректная дата";
     }
