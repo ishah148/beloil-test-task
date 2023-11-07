@@ -1,5 +1,5 @@
 @import "variables";
-@import "reset.css";
+@import "spacing-generator";
 :root {
   --primary-padding: #{$primary-padding};
 }
@@ -35,7 +35,6 @@ main {
 }
 
 section {
-  margin-bottom: 50px;
   border-radius: 10px;
 }
 
@@ -103,4 +102,8 @@ section {
 .text-center{
   text-align: center;
   align-items: center
+}
+
+.mb-3{
+  margin-bottom: 3rem;
 }

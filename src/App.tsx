@@ -2,8 +2,9 @@ import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import { PrimeReactProvider } from "primereact/api";
 
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+import 'primeicons/primeicons.css';
 import "../src/assets/styles/main.scss";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 
 import Footer from "./components/footer/Footer.tsx";
 import Header from "./components/header/Header.tsx";

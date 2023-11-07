@@ -8,6 +8,7 @@ import { Column } from "primereact/column";
 import { CustomerService } from "../../service/CustomerService.ts";
 import { InputText } from "primereact/inputtext";
 import { Customer, LazyTableState } from "./DataTable.types.ts";
+import ActionBar from "../actionBar/ActionBar.tsx";
 
 export default function LazyLoadDemo() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,18 +80,7 @@ export default function LazyLoadDemo() {
     );
   };
 
-  const representativeBodyTemplate = (rowData: Customer) => {
-    return (
-      <div className="flex align-items-center gap-2">
-        <img
-          alt={rowData.representative.name}
-          src={`https://primefaces.org/cdn/primereact/images/avatar/${rowData.representative.image}`}
-          width={32}
-        />
-        <span>{rowData.representative.name}</span>
-      </div>
-    );
-  };
+
 
   const countryBodyTemplate = (rowData: Customer) => {
     return (
@@ -124,7 +114,7 @@ export default function LazyLoadDemo() {
         onSort={onSort}
         sortField={lazyState.sortField}
         sortOrder={lazyState.sortOrder}
-        filters={lazyState.filters}
+        // filters={lazyState.filters}
         loading={loading}
         tableStyle={{ minWidth: "75rem" }}
 
@@ -138,8 +128,6 @@ export default function LazyLoadDemo() {
           field="name"
           header="Name"
           sortable
-          filter
-          filterPlaceholder="Search"
           editor={(options) => textEditor(options)}
           style={{ width: "20%" }}
         />
@@ -149,22 +137,16 @@ export default function LazyLoadDemo() {
           header="Country"
           filterField="country.name"
           body={countryBodyTemplate}
-          filter
-          filterPlaceholder="Search"
         />
         <Column
           field="company"
           sortable
-          filter
           header="Company"
-          filterPlaceholder="Search"
         />
         <Column
-          field="representative.name"
-          header="Representative"
-          body={representativeBodyTemplate}
-          filter
-          filterPlaceholder="Search"
+          field="ooo"
+          header="Действия"
+          body={() => <ActionBar />}
         />
       </DataTable>
     </div>

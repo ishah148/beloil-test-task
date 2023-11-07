@@ -14,7 +14,7 @@ export class Formatter {
     return dayStr + "." + monthStr + "." + yearStr;
   }
   static getTimeMMHH(date = new Date()): string {
-    const hour = date.getHours();
+    const hour = date.getHours().toString().padStart(2, "0");
     const min = date.getMinutes().toString().padStart(2, "0");
     return `${hour}:${min}`;
   }
