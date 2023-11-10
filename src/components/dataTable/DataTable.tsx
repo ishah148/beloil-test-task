@@ -6,7 +6,6 @@ import {
 } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { CustomerService } from "../../service/CustomerService.ts";
-import { InputText } from "primereact/inputtext";
 import { Customer, LazyTableState } from "./DataTable.types.ts";
 import ActionBar from "../actionBar/ActionBar.tsx";
 
@@ -21,12 +20,6 @@ export default function LazyLoadDemo() {
     page: 1,
     sortField: undefined,
     sortOrder: undefined,
-    filters: {
-      name: { value: "", matchMode: "contains" },
-      "country.name": { value: "", matchMode: "contains" },
-      company: { value: "", matchMode: "contains" },
-      "representative.name": { value: "", matchMode: "contains" },
-    },
   });
 
   let networkTimeout: number | null | NodeJS.Timeout = null;
@@ -43,18 +36,18 @@ export default function LazyLoadDemo() {
     }
 
     //imitate delay of a backend call
-    networkTimeout = setTimeout(
-      () => {
-        CustomerService.getCustomers({
-          lazyEvent: JSON.stringify(lazyState),
-        }).then((data) => {
-          setTotalRecords(data.totalRecords);
-          setCustomers(data.customers);
-          setLoading(false);
-        });
-      },
-      Math.random() * 1000 + 250,
-    );
+    // networkTimeout = setTimeout(
+    //   () => {
+    //     CustomerService.getCustomers({
+    //       lazyEvent: JSON.stringify(lazyState),
+    //     }).then((data) => {
+    //       setTotalRecords(data.totalRecords);
+    //       setCustomers(data.customers);
+    //       setLoading(false);
+    //     });
+    //   },
+    //   Math.random() * 1000 + 250,
+    // );
   };
 
   const onPage = (event: DataTablePageEvent) => {
@@ -66,20 +59,6 @@ export default function LazyLoadDemo() {
     console.log("onSort", event);
     setLazyState(event as unknown as LazyTableState);
   };
-
-  const textEditor = (options) => {
-    console.log("textEditor Options", options);
-    return (
-      <InputText
-        type="text"
-        value={options.value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          options.editorCallback(e.target.value)
-        }
-      />
-    );
-  };
-
 
 
   const countryBodyTemplate = (rowData: Customer) => {
@@ -128,7 +107,6 @@ export default function LazyLoadDemo() {
           field="name"
           header="Name"
           sortable
-          editor={(options) => textEditor(options)}
           style={{ width: "20%" }}
         />
         <Column
@@ -144,7 +122,7 @@ export default function LazyLoadDemo() {
           header="Company"
         />
         <Column
-          field="ooo"
+          field="weCanUseNested.someValue"
           header="Действия"
           body={() => <ActionBar />}
         />

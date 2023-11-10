@@ -1,15 +1,16 @@
 import { FC } from "react";
 
 import "./FlightsBoard.scss";
-import TimeBoard from "../../components/timeboard/TimeBoard.tsx";
 
 import { SubmitHandler } from "react-hook-form";
-import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
-import { Inputs } from "../../components/flightCreator/types.ts";
 import DataTable from "../../components/dataTable/DataTable.tsx";
+import { Inputs } from "../../components/flightCreator/types.ts";
 
-const Main: FC = () => {
+import TimeBoard from "../../components/timeboard/TimeBoard.tsx";
+import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
+import Sanbox from "../Sanbox.tsx";
 
+const FlightsBoard: FC = () => {
   function onCloseFlightCreatorDialog() {
     // setIsDialogVisible(false);
   }
@@ -21,14 +22,14 @@ const Main: FC = () => {
   return (
     <main>
       <TimeBoard />
+      <Sanbox />
       <FlightCreator
         onCloseDialog={onCloseFlightCreatorDialog}
         onSubmit={onFlightCreatorSubmit}
       />
       <DataTable />
-
     </main>
   );
 };
 
-export default Main;
+export default FlightsBoard;

@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import NotFound from "../pages/NotFound.tsx";
 import App from "../App.tsx";
-import Main from "../pages/flightsBoard/FlightsBoard.tsx";
+import FlightsBoard from "../pages/flightsBoard/FlightsBoard.tsx";
 import BookingBoard from "../pages/BookingBoard.tsx";
 
 export enum Routes {
@@ -16,7 +16,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: Routes.MAIN,
-        element: <Main />,
+        element: <FlightsBoard />,
       },
       {
         path: Routes.BOOKING,
