@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { FlightDataService } from "../../http/services/tableData.ts";
-import { FlightTableItem, isApiError } from "../../http/services/mockData.ts";
+import { FlightDataService } from "../../http/services/flights.ts";
+import { FlightTableItem, isApiError } from "../../http";
 
 export const getFlightData = createAsyncThunk<
   FlightTableItem[],

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
-import {
-  isApiError,
-} from "../http/services/mockData.ts";
+import { isApiError } from "../http";
 
 type FetcherFunction<T> = (...args: unknown[]) => Promise<AxiosResponse<T>>;
 

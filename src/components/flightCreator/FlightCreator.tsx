@@ -58,9 +58,9 @@ const FlightCreator = (props: Props) => {
           <label>
             Номер рейса
             <br />
-            {hookFormErrors.flightNo && (
+            {hookFormErrors.flight_id && (
               <span className="invalid-validation">
-                {hookFormErrors.flightNo.message}
+                {hookFormErrors.flight_id.message}
               </span>
             )}
             <input

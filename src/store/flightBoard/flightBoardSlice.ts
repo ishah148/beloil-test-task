@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { FlightTableItem } from "../../http/services/mockData.ts";
+
 import { getFlightData } from "./flightBoardThunks.ts";
+import { FlightTableItem } from "../../http";
 
 interface State {
   value: number;

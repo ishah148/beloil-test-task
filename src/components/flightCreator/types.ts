@@ -1,5 +1,5 @@
 export type Inputs = {
-    flightNo: string;
+    flight_id: string;
     airline: string;
     myVal: string;
     city: string;

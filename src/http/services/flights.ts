@@ -1,6 +1,7 @@
 import { $api } from "../api";
 import { getMockFlightData } from "../api/mockFetch.ts";
-import { ApiResponseError, FlightTableItem } from "./mockData.ts";
+import {ApiResponseError, FlightTableItem} from "../index.ts";
+
 
 export class FlightDataService {
   static async getFlightsData() {
@@ -11,6 +12,6 @@ export class FlightDataService {
   }
 
   static async getFlightsData2() {
-    return $api.get("https://jsonplaceholder.typicode.com/posts/");
+    return $api.get("src/http/services/mockFlights.json");
   }
 }
