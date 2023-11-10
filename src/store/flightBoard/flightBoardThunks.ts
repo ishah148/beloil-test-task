@@ -1,11 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { FlightDataService } from "../../http/services/tableData.ts";
-import { handleAxiosError } from "../../utils/handleAxiosError.ts";
-import {
-  ApiResponseError,
-  FlightTableItem,
-  isApiError,
-} from "../../http/services/mockData.ts";
+import { FlightTableItem, isApiError } from "../../http/services/mockData.ts";
 
 export const getFlightData = createAsyncThunk<
   FlightTableItem[],
@@ -15,16 +10,15 @@ export const getFlightData = createAsyncThunk<
   try {
     console.log("debug");
     const data = await FlightDataService.getFlightsData();
-    // if (isApiError(data)) {
-    //   throw new Error(data.error);
-    // } else {
-    // }
+    if (isApiError(data)) {
+      return thunkAPI.rejectWithValue(data.error);
+    }
     return data;
   } catch (error) {
-    if (isApiError(error as any)) {
+    if (isApiError(error)) {
       return thunkAPI.rejectWithValue(error?.error);
     } else {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error as string);
     }
   }
 });

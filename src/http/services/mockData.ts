@@ -19,7 +19,7 @@ export function isFlightTableData(data: unknown[]): data is FlightTableItem[] {/
 }
 
 export const isApiError = ( //todo move
-  value: Record<string, any>,
+  value: unknown,
 ): value is ApiResponseError => {
   return (value as ApiResponseError)?.error !== undefined;
 };

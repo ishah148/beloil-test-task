@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import {
-  FlightTableItem,
-} from "../../http/services/mockData.ts";
+import { FlightTableItem } from "../../http/services/mockData.ts";
 import { getFlightData } from "./flightBoardThunks.ts";
 
 interface State {
@@ -36,7 +34,7 @@ const onRejected = (
   state: State,
   payload: PayloadAction<string | undefined>,
 ) => {
-  console.log("pay",payload)
+  console.log("pay", payload);
   state.loading = false;
   state.success = false;
   state.error = payload.payload || "Произошла ошибка."; // todo constant
