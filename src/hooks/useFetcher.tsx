@@ -1,19 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { isApiError } from "../http";
 
-type FetcherFunction<T> = (...args: unknown[]) => Promise<AxiosResponse<T>>;
+function useFetchData<T extends (...args: any[]) => any, D>(cb: any) {
+  // type RemoveAxiosResponse<C extends AxiosResponse> = C extends AxiosResponse<infer T> ? T : any;
+  // type ResultData = Subtract<RemoveAxiosResponse<Awaited<ReturnType<T>>>, ApiResponseError>;
 
-function useFetcher<T>(fetcher: FetcherFunction<T>) {
-  const [data, setData] = useState<T>([] as T);
+  const [data, setData] = useState<D>([] as D);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  async function getData(url: string, config?: AxiosRequestConfig<T>) {
+  async function getData(...args: Parameters<T>) {
     setLoading(true);
     let response;
     try {
-      response = await fetcher(url, config);
+      response = await cb(args);
     } catch (e) {
       setErrorMsg(
         "Что-то пошло не так или проверьте правильность введенных дынных",
@@ -43,4 +45,4 @@ function useFetcher<T>(fetcher: FetcherFunction<T>) {
   };
 }
 
-export default useFetcher;
+export default useFetchData;

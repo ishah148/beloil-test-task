@@ -1,5 +1,3 @@
-import {DataTableFilterMeta} from "primereact/datatable";
-
 export interface Country {
   name: string;
   code: string;
@@ -29,5 +27,15 @@ export interface LazyTableState {
   page: number;
   sortField?: string | undefined;
   sortOrder?: number | undefined;
-  filters: DataTableFilterMeta;
+}
+
+export interface TableParams {
+  sortOrder:  0 | 1 | -1 | null | undefined;
+  sortField: string;
+  page: number;
+  rows: number;
+  first: number;
+  limit: number;
+  totalRecords: number;
+  pageCount:number
 }

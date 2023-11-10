@@ -8,7 +8,6 @@ export const getFlightData = createAsyncThunk<
   { rejectValue: string }
 >("flights/getFlightsData", async (_, thunkAPI) => {
   try {
-    console.log("debug");
     const data = await FlightDataService.getFlightsData();
     if (isApiError(data)) {
       return thunkAPI.rejectWithValue(data.error);

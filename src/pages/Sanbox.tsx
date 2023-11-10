@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../store";
 import { ApiResponseError, FlightTableItem } from "../http";
 import { FlightDataService } from "../http/services/flights.ts";
-import {FC, useEffect} from "react";
+import { FC, useEffect } from "react";
 import useFetcher from "../hooks/useFetcher.tsx";
 
 const Sanbox: FC = () => {
@@ -22,7 +22,7 @@ const Sanbox: FC = () => {
   useEffect(() => {
     console.log("mouted sandbox");
     if (!loading2) {
-      getData("https://jsonplaceholder.typicode.com/todo1s/1");
+      getData();
     }
     // dispatch(getFlightData());
   }, []);
@@ -39,7 +39,7 @@ const Sanbox: FC = () => {
       {loading && <p>........loading .............</p>}
       {error && <p>{error}</p>}
       <hr />
-      {!errorMsg && JSON.stringify(data2)}
+      {!errorMsg && !loading2 && JSON.stringify(data2)}
       {loading2 && <p>........loading .............</p>}
       {errorMsg && <p>{errorMsg}</p>}
     </>

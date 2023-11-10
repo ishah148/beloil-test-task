@@ -19,6 +19,13 @@ const requiredValidationRule = {
   },
 };
 
+const onlyStringValidationRule = {
+  pattern: {
+    value: /[a-zA-Zа-яА-Я]/,
+    message: "Данное поле должно быть строковым значением",
+  },
+};
+
 const FlightCreator = (props: Props) => {
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
 
@@ -64,7 +71,7 @@ const FlightCreator = (props: Props) => {
               </span>
             )}
             <input
-              {...register("flightNo", {
+              {...register("flight_id", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -83,6 +90,7 @@ const FlightCreator = (props: Props) => {
             <input
               {...register("city", {
                 ...requiredValidationRule,
+                ...onlyStringValidationRule,
               })}
               className="p-inputtext p-component"
               type={"text"}
@@ -92,13 +100,13 @@ const FlightCreator = (props: Props) => {
           <label>
             Дата и время вылета
             <br />
-            {hookFormErrors.flightDate && (
+            {hookFormErrors.departure_time && (
               <span className="invalid-validation">
-                {hookFormErrors.flightDate.message}
+                {hookFormErrors.departure_time.message}
               </span>
             )}
             <input
-              {...register("flightDate", {
+              {...register("departure_time", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -109,34 +117,37 @@ const FlightCreator = (props: Props) => {
           <label>
             Авиакомпания
             <br />
-            {hookFormErrors.airline && (
+            {hookFormErrors.airline_name && (
               <span className="invalid-validation">
-                Обязательно для заполнения
+                {hookFormErrors.airline_name.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
-              {...register("airline", { ...requiredValidationRule })}
+              {...register("airline_name", {
+                ...requiredValidationRule,
+                ...onlyStringValidationRule,
+              })}
             />
           </label>
 
           <label>
             Дата и время регистрации
             <br />
-            {hookFormErrors.registrationDate && (
+            {hookFormErrors.checkin_time && (
               <span className="invalid-validation">
-                {hookFormErrors.registrationDate.message}
+                {hookFormErrors.checkin_time.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
               type={"datetime-local"}
-              {...register("registrationDate", {
+              {...register("checkin_time", {
                 ...requiredValidationRule,
                 validate: () =>
                   Validator.validateRegisterDate(
-                    getValues("registrationDate"),
-                    getValues("flightDate"),
+                    getValues("checkin_time"),
+                    getValues("departure_time"),
                   ),
               })}
             />
@@ -145,14 +156,15 @@ const FlightCreator = (props: Props) => {
           <label>
             Количество мест
             <br />
-            {hookFormErrors.seatsAmount && (
+            {hookFormErrors.seat_capacity && (
               <span className="invalid-validation">
-                {hookFormErrors.seatsAmount.message}
+                {hookFormErrors.seat_capacity.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
-              {...register("seatsAmount", {
+              type={"number"}
+              {...register("seat_capacity", {
                 ...requiredValidationRule,
                 min: {
                   value: 1,
