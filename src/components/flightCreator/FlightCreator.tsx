@@ -4,30 +4,27 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Inputs } from "./types.ts";
 import { Button } from "primereact/button";
 import { useState } from "react";
+import useFetcher from "../../hooks/useFetcher.tsx";
+import { FlightDataService } from "../../http/services/flights.ts";
+import { validationRules } from "../../constants";
 
 type Props = {
   // isDialogVisible: boolean;
-  onCloseDialog: () => void;
-  onSubmit: SubmitHandler<Inputs>;
+  onCloseDialog?: () => void;
+  onSubmit?: SubmitHandler<Inputs>;
   isLoading?: boolean;
 };
 
-const requiredValidationRule = {
-  required: {
-    value: true,
-    message: "Обязательно для заполнения",
-  },
-};
-
-const onlyStringValidationRule = {
-  pattern: {
-    value: /[a-zA-Zа-яА-Я]/,
-    message: "Данное поле должно быть строковым значением",
-  },
-};
-
 const FlightCreator = (props: Props) => {
+  const { requiredValidationRule, onlyStringValidationRule } = validationRules;
+  const successText = "Создание рейса успешно завершено!";
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
+
+  const { loading, sendReq } = useFetcher<typeof FlightDataService.create, unknown>(
+    FlightDataService.create,
+    true,
+    successText,
+  );
 
   const {
     register,
@@ -38,7 +35,7 @@ const FlightCreator = (props: Props) => {
   } = useForm<Inputs>();
 
   const isSubmitBtnDisabled =
-    Object.keys(hookFormErrors).length > 0 || props?.isLoading;
+    Object.keys(hookFormErrors).length > 0 || props?.isLoading || loading;
 
   function openDialog() {
     setIsDialogVisible(true);
@@ -47,8 +44,12 @@ const FlightCreator = (props: Props) => {
   function closeDialog() {
     reset();
     setIsDialogVisible(false);
-    props.onCloseDialog();
+    props?.onCloseDialog?.();
   }
+
+  const submit = handleSubmit(async (data) => {
+    await sendReq(data);
+  });
 
   return (
     <>
@@ -61,7 +62,11 @@ const FlightCreator = (props: Props) => {
         onCancel={closeDialog}
         headerText="Добавление рейса"
       >
-        <form className="dialog-form" onSubmit={handleSubmit(props.onSubmit)}>
+        <form
+          className="dialog-form"
+          // onSubmit={props.onSubmit && handleSubmit(props.onSubmit)}
+          onSubmit={submit}
+        >
           <label>
             Номер рейса
             <br />
@@ -192,6 +197,7 @@ const FlightCreator = (props: Props) => {
           <Button
             className={"p-button text-center"}
             disabled={isSubmitBtnDisabled}
+            loading={loading}
           >
             Создать
           </Button>

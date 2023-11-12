@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import flightBoardReducer from "./flightBoard/flightBoardSlice.ts";
+import notificationReducer from "./notifications/notificationSlice.ts";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
     flightBoard: flightBoardReducer,
+    notification: notificationReducer,
   },
 });
 

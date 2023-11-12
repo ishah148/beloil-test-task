@@ -112,3 +112,19 @@ section {
   top: 50px;
   height: calc(100% - 50px - 70px);
 }
+
+.data-table-btns__container{
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  span{
+    margin-right: 10px;
+  }
+  .data-table-btns__button{
+    button{
+      width: 150px;
+      text-align: center;
+    }
+  }
+}

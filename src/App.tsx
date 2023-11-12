@@ -11,6 +11,7 @@ import Header from "./components/header/Header.tsx";
 import { Routes } from "./router";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import Notification from "./components/notification/Notification.tsx";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const App: FC = () => {
     <div className={"layout-wrapper"}>
       <Provider store={store}>
         <PrimeReactProvider>
+          <Notification />
           <Header />
           <Outlet />
           <Footer />

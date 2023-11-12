@@ -3,14 +3,21 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getFlightData } from "./flightBoardThunks.ts";
 import { FlightTableItem } from "../../http";
-import { TableParams } from "../../components/dataTable/DataTable.types.ts";
+import {
+  Filters,
+  TableParams,
+} from "../../components/dataTable/DataTable.types.ts";
+import { generateRandomString } from "../../utils/randomStringGenerator.ts";
+import { getInitialFilters } from "../../components/dataTable/utils.ts";
 
 interface State {
   data: FlightTableItem[];
   loading: boolean;
   error: string | null;
   success: boolean;
+  updateTableKey: string;
   tableParams: TableParams;
+  filterParams: Filters;
 }
 
 const initialTableParams: TableParams = {
@@ -29,7 +36,9 @@ const initialState: State = {
   loading: false,
   error: null,
   success: false,
+  updateTableKey: "",
   tableParams: initialTableParams,
+  filterParams: getInitialFilters("flightBoard") as Filters,
 };
 
 export const flightBoardSlice = createSlice({
@@ -38,6 +47,15 @@ export const flightBoardSlice = createSlice({
   reducers: {
     setTableParams: (state, action: PayloadAction<Partial<TableParams>>) => {
       Object.assign(state.tableParams, action.payload);
+    },
+    updateTable: (state) => {
+      state.updateTableKey = generateRandomString(15);
+    },
+    setFilterParams: (state, action: PayloadAction<Partial<TableParams>>) => {
+      Object.assign(state.filterParams, action.payload);
+    },
+    resetFilters: (state) => {
+      Object.assign(state.filterParams, getInitialFilters("flightBoard"));
     },
   },
   extraReducers: (builder) => {

@@ -1,6 +1,8 @@
 import { $api } from "../api";
 import { getMockFlightData } from "../api/mockFetch.ts";
 import { ApiResponseError, FlightTableItem } from "../index.ts";
+import { TableParams } from "../../components/dataTable/DataTable.types.ts";
+import { Inputs } from "../../components/flightCreator/types.ts";
 
 export class FlightDataService {
   static async getFlightsData() {
@@ -9,9 +11,19 @@ export class FlightDataService {
       | ApiResponseError;
   }
 
-  static async getFlightsData2(page: number = 1, limit: number = 10) {
-    return $api.get<| FlightTableItem[] | ApiResponseError>(
-      `src/http/services/mockFlights.json?page=${page}&limit=${limit}`,
+  static async getFlightsData2(
+    params: Record<string, string | number | boolean | undefined | null>,
+  ) {
+    return $api.get<FlightTableItem[] | ApiResponseError>(
+      `src/http/services/mockFlights.json`,
+      { params },
     );
+  }
+  static async delete(id: string) {
+    return $api.delete(`/delete/${id}`);
+  }
+
+  static async create(params: Inputs) {
+    return $api.post("/create", params);
   }
 }

@@ -1,10 +1,7 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 
 import "./FlightsBoard.scss";
-
-import { SubmitHandler } from "react-hook-form";
 import DataTable from "../../components/dataTable/DataTable.tsx";
-import { Inputs } from "../../components/flightCreator/types.ts";
 
 import TimeBoard from "../../components/timeboard/TimeBoard.tsx";
 import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
@@ -13,41 +10,48 @@ import useFetcher from "../../hooks/useFetcher.tsx";
 import { FlightTableItem } from "../../http";
 import { FlightDataService } from "../../http/services/flights.ts";
 import { useAppSelector } from "../../store";
+import { Filters, TableParams } from "../../components/dataTable/DataTable.types.ts";
+import { getQuery } from "../../utils/queryConverter.ts";
 
 const FlightsBoard: FC = () => {
-  function onCloseFlightCreatorDialog() {
-    // setIsDialogVisible(false);
-  }
+  // function onCloseFlightCreatorDialog() {
+  //   // setIsDialogVisible(false);
+  // }
 
   const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
+  const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
+  const updateKey = useAppSelector((state) => state.flightBoard.updateTableKey);
 
-  const onFlightCreatorSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log("onSubmit:data", data); // send to server!!!
-  };
+  // const onFlightCreatorSubmit: SubmitHandler<Inputs> = (data) => {
+  //   console.log("onSubmit:data", data); // send to server!!!
+  // };
 
-  const {
-    data,
-    getData: getFlightsData,
-    loading,
-    errorMsg,
-  } = useFetcher<typeof FlightDataService.getFlightsData2, FlightTableItem[]>(
-    FlightDataService.getFlightsData2,
-  );
+  const { data, sendReq, loading } = useFetcher<
+    typeof FlightDataService.getFlightsData2,
+    FlightTableItem[]
+  >(FlightDataService.getFlightsData2);
 
   useEffect(() => {
-    (async () => {
-      await getFlightsData();
-    })();
+    getFlightData(tableParams, filterParams);
   }, [tableParams]);
+
+  useEffect(() => {
+    if (updateKey) {
+      getFlightData(tableParams, filterParams);
+    }
+  }, [updateKey]);
+
+  function getFlightData(tableParams: TableParams, filterParams: Filters) {
+    (async () => {
+      await sendReq(getQuery(tableParams, filterParams));
+    })();
+  }
 
   return (
     <main>
       <TimeBoard />
       {/*<Sanbox />*/}
-      <FlightCreator
-        onCloseDialog={onCloseFlightCreatorDialog}
-        onSubmit={onFlightCreatorSubmit}
-      />
+      <FlightCreator />
       <DataTable flights={data} loading={loading} />
     </main>
   );

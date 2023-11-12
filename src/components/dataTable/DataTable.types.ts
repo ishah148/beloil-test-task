@@ -29,13 +29,20 @@ export interface LazyTableState {
   sortOrder?: number | undefined;
 }
 
+export type Filters = {
+  [key: string]: {
+    value: string;
+    matchMode: string | "contains";
+  };
+};
+
 export interface TableParams {
-  sortOrder:  0 | 1 | -1 | null | undefined;
+  sortOrder: 0 | 1 | -1 | null | undefined;
   sortField: string;
   page: number;
   rows: number;
   first: number;
   limit: number;
   totalRecords: number;
-  pageCount:number
+  pageCount: number;
 }

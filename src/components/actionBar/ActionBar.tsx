@@ -1,7 +1,11 @@
 import "./ActionBar.scss";
 import { Button } from "primereact/button";
 import { FlightTableItem } from "../../http";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
+import { useAppDispatch } from "../../store";
+import useFetcher from "../../hooks/useFetcher.tsx";
+import { FlightDataService } from "../../http/services/flights.ts";
 
 type Props = {
   onRemoveClick: () => void;
@@ -10,9 +14,24 @@ type Props = {
   rowData: FlightTableItem;
 };
 const ActionBar = (props: Props) => {
-  const { isDeleteBtnLoading, rowData, onRemoveClick, onEditClick } = props;
+  const { isDeleteBtnLoading, rowData, onEditClick } = props;
+  const dispatch = useAppDispatch();
+
+  const {
+    loading: isDeleteLoading = true,
+    sendReq,
+    errorMsg,
+  } = useFetcher<typeof FlightDataService.delete, Record<string, string>>(
+    FlightDataService.delete,
+  );
+
+  async function remove() {
+    await sendReq(rowData.flight_id)
+    dispatch(flightBoardSliceActions.updateTable());
+  }
+
   useEffect(() => {
-    console.log("rowData",rowData)
+    // console.log("rowData", rowData);
   }, []);
   return (
     <div className="action-bar-container">
@@ -20,11 +39,12 @@ const ActionBar = (props: Props) => {
         <i className="pi pi-user-edit"></i>
       </Button>
       <Button
-        loading={isDeleteBtnLoading}
+        loading={isDeleteLoading}
         className="p-button p-button-danger delete"
-        onClick={onRemoveClick}
+        onClick={remove}
+        disabled={isDeleteBtnLoading}
       >
-        {!isDeleteBtnLoading && <i className="pi pi-trash"></i>}
+        {!isDeleteLoading && <i className="pi pi-trash"></i>}
       </Button>
     </div>
   );

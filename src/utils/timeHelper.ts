@@ -18,4 +18,12 @@ export class Formatter {
     const min = date.getMinutes().toString().padStart(2, "0");
     return `${hour}:${min}`;
   }
+
+  static getTimeMS(date:string){
+    return new Date(date).getTime()
+  }
+
+  static isDate(date:string){
+
+  }
 }

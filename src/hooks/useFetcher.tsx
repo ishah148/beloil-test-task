@@ -2,31 +2,45 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
 import { isApiError } from "../http";
+import { useAppDispatch } from "../store";
+import { notificationSliceActions } from "../store/notifications/notificationSlice.ts";
 
-function useFetchData<T extends (...args: any[]) => any, D>(cb: any) {
+function useFetchData<T extends (...args: any[]) => any, D>(
+  cb: any,
+  showNotification: boolean = true,
+  successMsg?: string,
+) {
   // type RemoveAxiosResponse<C extends AxiosResponse> = C extends AxiosResponse<infer T> ? T : any;
   // type ResultData = Subtract<RemoveAxiosResponse<Awaited<ReturnType<T>>>, ApiResponseError>;
+
+  const dispatch = useAppDispatch();
 
   const [data, setData] = useState<D>([] as D);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  async function getData(...args: Parameters<T>) {
+  async function sendReq(...args: Parameters<T>) {
     setLoading(true);
     let response;
     try {
-      response = await cb(args);
+      response = await cb(...args);
     } catch (e) {
-      setErrorMsg(
-        "Что-то пошло не так или проверьте правильность введенных дынных",
-      );
+      const msg =
+        "Что-то пошло не так или проверьте правильность введенных дынных";
+      if (isAxiosError(e) && !e?.response?.data) {
+        setErrorNotification(JSON.stringify(e.message));
+        return;
+      }
+      setErrorNotification(msg);
+      setErrorMsg(msg);
       return;
     } finally {
       setLoading(false);
     }
 
     if (isAxiosError(response)) {
-      console.log("responce", response);
+      setErrorNotification(JSON.stringify(response.message));
+      return;
     }
 
     if (isApiError(response?.data)) {
@@ -34,13 +48,36 @@ function useFetchData<T extends (...args: any[]) => any, D>(cb: any) {
       return;
     }
 
+    setSuccessNotification()
     setData(response.data);
+  }
+
+  function setErrorNotification(msg: string) {
+    if (showNotification) {
+      dispatch(
+        notificationSliceActions.setNotification({
+          notificationText: msg,
+          type: "error",
+        }),
+      );
+    }
+  }
+
+  function setSuccessNotification() {
+    if (showNotification && successMsg) {
+      dispatch(
+        notificationSliceActions.setNotification({
+          notificationText: successMsg,
+          type: "success",
+        }),
+      );
+    }
   }
 
   return {
     data,
     errorMsg,
-    getData,
+    sendReq,
     loading,
   };
 }
