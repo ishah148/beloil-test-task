@@ -11,16 +11,17 @@ import { Column } from "primereact/column";
 import { FlightTableItem } from "../../http";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
-import { flightBoardColumns } from "./columns/flightTableColumns.tsx";
 import { Button } from "primereact/button";
+import { ColumnConfig } from "./DataTable.types.ts";
 
-type Props = {
-  flights: FlightTableItem[];
+type Props<T> = {
+  data: T[];
   loading: boolean;
-  onEdit: (editData: Record<string, string>) => void;
+  onEdit?: (editData: Record<string, string>) => void;
+  tableConfig: ColumnConfig[];
 };
 
-export default function FlightsTable({ flights, loading }: Props) {
+export default function MyDataTable<T>({ data, loading, tableConfig }: Props<T>) {
   const dispatch = useAppDispatch();
   const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
   const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
@@ -73,7 +74,7 @@ export default function FlightsTable({ flights, loading }: Props) {
   return (
     <div className="card">
       <DataTable
-        value={flights}
+        value={data}
         lazy
         // filterDisplay="row"
         header={tableHeader}
@@ -96,7 +97,7 @@ export default function FlightsTable({ flights, loading }: Props) {
         rowsPerPageOptions={[5, 10, 15]}
         emptyMessage="Данные отсуствуют"
       >
-        {flightBoardColumns.map((col) => {
+        {tableConfig.map((col) => {
           return (
             <Column
               field={col.field}

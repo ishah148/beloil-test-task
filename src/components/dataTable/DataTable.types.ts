@@ -50,18 +50,6 @@ export interface TableParams {
   pageCount: number;
 }
 
-type a = {
-  headerStyle: { width: string };
-  field?: undefined;
-  header?: undefined;
-  sortable?: undefined;
-  filter?: undefined;
-  filterPlaceholder?: undefined;
-  dataType?: undefined;
-  filterElement?: undefined;
-  body?: undefined;
-}[];
-
 export interface ColumnConfig {
   headerStyle?: { width: string };
   field?: string;

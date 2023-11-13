@@ -13,6 +13,7 @@ import { useAppSelector } from "../../store";
 import { Filters, TableParams } from "../../components/dataTable/DataTable.types.ts";
 import { getQuery } from "../../utils/queryConverter.ts";
 import FlightEditor from "../../components/flightEditor/FlightEditor.tsx";
+import { flightBoardConfig } from "../../components/dataTable/columns/flightTableColumns.tsx";
 
 const FlightsBoard: FC = () => {
   const updateKey = useAppSelector((state) => state.flightBoard.updateTableKey);
@@ -45,7 +46,7 @@ const FlightsBoard: FC = () => {
       <TimeBoard />
       <FlightEditor />
       <FlightCreator />
-      <DataTable flights={data} loading={loading} />
+      <DataTable data={data} loading={loading} tableConfig={flightBoardConfig} />
     </main>
   );
 };

@@ -3,7 +3,7 @@ import ActionBar from "../../actionBar/ActionBar.tsx";
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
 import { ColumnConfig } from "../DataTable.types.ts";
 
-export const flightBoardColumns: ColumnConfig[] = [
+export const bookingBoardConfig: ColumnConfig[] = [
   {
     headerStyle: { width: "3rem" },
   },
@@ -15,43 +15,42 @@ export const flightBoardColumns: ColumnConfig[] = [
     filterPlaceholder: "Номер рейса",
   },
   {
-    field: "city",
+    field: "first_name",
     sortable: true,
-    header: "Город(Аэропорт)",
+    header: "Имя",
     filter: true,
-    filterPlaceholder: "Город(Аэропорт)",
+    filterPlaceholder: "Имя",
   },
   {
-    field: "airline_name",
+    field: "last_name",
     sortable: true,
-    header: "Авиакомпания",
+    header: "Фамилия",
     filter: true,
-    filterPlaceholder: "Авиакомпания",
+    filterPlaceholder: "Фамилия",
   },
   {
-    field: "departure_time",
+    field: "surname",
     sortable: true,
-    header: "Дата и время вылета",
+    header: "Отчество",
     filter: true,
-    filterPlaceholder: "Дата и время вылета",
+    filterPlaceholder: "Отчество",
+  },
+
+  {
+    field: "booking_time",
+    sortable: true,
+    header: "Дата брони",
+    filter: true,
+    filterPlaceholder: "Дата брони",
     dataType: "date",
     filterElement: dateFilterTemplate,
   },
   {
-    field: "checkin_time",
-    sortable: true,
-    header: "Регистрация (до)",
-    filter: true,
-    filterPlaceholder: "Регистрация (до)",
-    dataType: "date",
-    filterElement: dateFilterTemplate,
-  },
-  {
-    field: "seat_capacity",
+    field: "seat_number",
     sortable: true,
     header: "Кол-во мест",
     filter: true,
-    filterPlaceholder: "Кол-во мест",
+    filterPlaceholder: "Номер места",
   },
   {
     field: "notes",

@@ -1,9 +1,9 @@
-import { flightBoardColumns } from "./columns/flightTableColumns.tsx";
+import { flightBoardConfig } from "./columns/flightTableColumns.tsx";
 import { Filters } from "./DataTable.types.ts";
 
 export function getInitialFilters(tableName: "flightBoard" | "bookingBoard") {
   if (tableName === "flightBoard") {
-    const entries: [string, Record<string, string>][] = flightBoardColumns
+    const entries: [string, Record<string, string>][] = flightBoardConfig
       .filter((col) => col.field && col.field !== "notes" && col.field !== "actions")
       .map((col) => {
         return [
@@ -18,7 +18,7 @@ export function getInitialFilters(tableName: "flightBoard" | "bookingBoard") {
   }
 
   if (tableName === "bookingBoard") {
-    return flightBoardColumns
+    return flightBoardConfig
       .filter((col) => col.field !== "notes")
       .map((col) => col.field) as any as Filters;
   }
