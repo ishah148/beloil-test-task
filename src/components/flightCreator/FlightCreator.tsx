@@ -1,7 +1,7 @@
 import EditDialog from "../editDialog/EditDialog.tsx";
 import { Validator } from "../../utils/validator.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Inputs } from "./types.ts";
+import { FlightsFieldsNames } from "./types.ts";
 import { Button } from "primereact/button";
 import { useState } from "react";
 import useFetcher from "../../hooks/useFetcher.tsx";
@@ -11,7 +11,7 @@ import { validationRules } from "../../constants";
 type Props = {
   // isDialogVisible: boolean;
   onCloseDialog?: () => void;
-  onSubmit?: SubmitHandler<Inputs>;
+  onSubmit?: SubmitHandler<FlightsFieldsNames>;
   isLoading?: boolean;
 };
 
@@ -32,7 +32,7 @@ const FlightCreator = (props: Props) => {
     reset,
     getValues,
     formState: { errors: hookFormErrors },
-  } = useForm<Inputs>();
+  } = useForm<FlightsFieldsNames>();
 
   const isSubmitBtnDisabled =
     Object.keys(hookFormErrors).length > 0 || props?.isLoading || loading;

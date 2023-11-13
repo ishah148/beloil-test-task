@@ -1,8 +1,8 @@
 import { $api } from "../api";
 import { getMockFlightData } from "../api/mockFetch.ts";
 import { ApiResponseError, FlightTableItem } from "../index.ts";
-import { TableParams } from "../../components/dataTable/DataTable.types.ts";
-import { Inputs } from "../../components/flightCreator/types.ts";
+import { FlightsFieldsNames } from "../../components/flightCreator/types.ts";
+import { FlightsEditFieldsNames } from "../../components/flightEditor/types.ts";
 
 export class FlightDataService {
   static async getFlightsData() {
@@ -20,10 +20,14 @@ export class FlightDataService {
     );
   }
   static async delete(id: string) {
-    return $api.delete(`/delete/${id}`);
+    return $api.delete(`/flight/delete/${id}`);
   }
 
-  static async create(params: Inputs) {
-    return $api.post("/create", params);
+  static async edit(params: FlightsEditFieldsNames) {
+    return $api.patch(`/flight/edit/`, { params });
+  }
+
+  static async create(params: FlightsFieldsNames) {
+    return $api.post("/flight/create", { params });
   }
 }

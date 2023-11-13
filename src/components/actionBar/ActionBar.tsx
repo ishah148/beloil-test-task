@@ -8,34 +8,36 @@ import useFetcher from "../../hooks/useFetcher.tsx";
 import { FlightDataService } from "../../http/services/flights.ts";
 
 type Props = {
-  onRemoveClick: () => void;
-  onEditClick: () => void;
+  onRemoveClick?: () => void;
+  onEditClick?: () => void;
   isDeleteBtnLoading?: true;
   rowData: FlightTableItem;
 };
 const ActionBar = (props: Props) => {
-  const { isDeleteBtnLoading, rowData, onEditClick } = props;
+  const { isDeleteBtnLoading, rowData } = props;
   const dispatch = useAppDispatch();
 
-  const {
-    loading: isDeleteLoading = true,
-    sendReq,
-    errorMsg,
-  } = useFetcher<typeof FlightDataService.delete, Record<string, string>>(
-    FlightDataService.delete,
-  );
+  const { loading: isDeleteLoading = true, sendReq } = useFetcher<
+    typeof FlightDataService.delete,
+    Record<string, string>
+  >(FlightDataService.delete);
 
   async function remove() {
-    await sendReq(rowData.flight_id)
+    await sendReq(rowData.flight_id);
     dispatch(flightBoardSliceActions.updateTable());
+  }
+
+  async function edit() {
+    dispatch(flightBoardSliceActions.setEditParams(rowData));
   }
 
   useEffect(() => {
     // console.log("rowData", rowData);
   }, []);
+
   return (
     <div className="action-bar-container">
-      <Button className="p-button edit" onClick={onEditClick}>
+      <Button className="p-button edit" onClick={edit}>
         <i className="pi pi-user-edit"></i>
       </Button>
       <Button

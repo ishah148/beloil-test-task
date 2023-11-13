@@ -4,7 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 type NotificationType = "error" | "success" | "info" | "warn" | undefined;
 interface State {
   notificationText: string | null;
-  type: "error" | "success" | "info" | "warn" | undefined;
+  type: NotificationType;
 }
 
 const initialState: State = {

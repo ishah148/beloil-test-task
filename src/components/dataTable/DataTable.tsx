@@ -17,6 +17,7 @@ import { Button } from "primereact/button";
 type Props = {
   flights: FlightTableItem[];
   loading: boolean;
+  onEdit: (editData: Record<string, string>) => void
 };
 
 export default function FlightsTable({ flights, loading }: Props) {

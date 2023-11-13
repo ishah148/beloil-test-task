@@ -3,10 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { getFlightData } from "./flightBoardThunks.ts";
 import { FlightTableItem } from "../../http";
-import {
-  Filters,
-  TableParams,
-} from "../../components/dataTable/DataTable.types.ts";
+import { Filters, TableParams } from "../../components/dataTable/DataTable.types.ts";
 import { generateRandomString } from "../../utils/randomStringGenerator.ts";
 import { getInitialFilters } from "../../components/dataTable/utils.ts";
 
@@ -18,6 +15,7 @@ interface State {
   updateTableKey: string;
   tableParams: TableParams;
   filterParams: Filters;
+  editorParams: Partial<FlightTableItem>;
 }
 
 const initialTableParams: TableParams = {
@@ -39,6 +37,7 @@ const initialState: State = {
   updateTableKey: "",
   tableParams: initialTableParams,
   filterParams: getInitialFilters("flightBoard") as Filters,
+  editorParams: {},
 };
 
 export const flightBoardSlice = createSlice({
@@ -56,6 +55,12 @@ export const flightBoardSlice = createSlice({
     },
     resetFilters: (state) => {
       Object.assign(state.filterParams, getInitialFilters("flightBoard"));
+    },
+    setEditParams: (state, action: PayloadAction<Partial<FlightTableItem>>) => {
+      Object.assign(state.editorParams, action.payload);
+    },
+    resetEditParams: (state) => {
+      state.editorParams = {};
     },
   },
   extraReducers: (builder) => {
@@ -82,10 +87,7 @@ const onFulfilled = (state: State) => {
   state.success = true;
 };
 
-const onRejected = (
-  state: State,
-  payload: PayloadAction<string | undefined>,
-) => {
+const onRejected = (state: State, payload: PayloadAction<string | undefined>) => {
   console.log("pay", payload);
   state.loading = false;
   state.success = false;

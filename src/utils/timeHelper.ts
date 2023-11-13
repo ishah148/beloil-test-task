@@ -19,11 +19,19 @@ export class Formatter {
     return `${hour}:${min}`;
   }
 
-  static getTimeMS(date:string){
-    return new Date(date).getTime()
+  static getTimeMS(date: string) {
+    return new Date(date).getTime();
   }
 
-  static isDate(date:string){
+  /** YYYY-MM-DDThh:mm format */
+  static getTimeYYYYMMDDTHHMM(str: string) {
+    const date = new Date(str)
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
 
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 }

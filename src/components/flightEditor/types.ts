@@ -1,4 +1,4 @@
-export type FlightsFieldsNames = {
+export type FlightsEditFieldsNames = {
     flight_id: string;
     airline_name: string;
     city: string;
