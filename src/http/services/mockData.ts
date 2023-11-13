@@ -1,5 +1,4 @@
-import {FlightTableItem} from "../index.ts";
-
+import { FlightTableItem } from "../index.ts";
 
 export const flightData: FlightTableItem[] = [
   {

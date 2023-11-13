@@ -10,10 +10,7 @@ type Props = {
   dialogFooterContent?: React.JSX.Element;
   showButtons?: boolean;
 };
-const EditDialog = ({
-  showButtons = false,
-  ...props
-}: PropsWithChildren<Props>) => {
+const EditDialog = ({ showButtons = false, ...props }: PropsWithChildren<Props>) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
@@ -38,12 +35,7 @@ const EditDialog = ({
             onClick={closeDialog}
             className="p-button-text"
           />
-          <Button
-            label="Применить"
-            icon="pi pi-check"
-            onClick={submit}
-            autoFocus
-          />
+          <Button label="Применить" icon="pi pi-check" onClick={submit} autoFocus />
         </>
       )}
     </>

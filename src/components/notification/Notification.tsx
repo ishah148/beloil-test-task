@@ -6,14 +6,12 @@ const Notification = () => {
   const toast = useRef<Toast>(null);
   const dispatch = useAppDispatch();
 
-  const { notificationText, type } = useAppSelector(
-    (state) => state.notification,
-  );
+  const { notificationText, type } = useAppSelector((state) => state.notification);
 
   useEffect(() => {
     if (notificationText) {
       showWarn(notificationText, type);
-      clear()
+      clear();
     }
   }, [notificationText, type]);
   const showWarn = (

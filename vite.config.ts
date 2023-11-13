@@ -10,10 +10,10 @@ export default defineConfig({
       "@/*": "/src/*",
     },
   },
-  css:{
-    devSourcemap:true,
+  css: {
+    devSourcemap: true,
   },
-  scss:{
-    devSourcemap:true,
+  scss: {
+    devSourcemap: true,
   },
 });

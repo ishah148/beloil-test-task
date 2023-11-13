@@ -10,7 +10,6 @@ import { validationRules } from "../../constants";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { isEmpty } from "../../utils/common.ts";
 import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
-import { Formatter } from "../../utils/timeHelper.ts";
 
 type CellData = {
   flight_id: string;
@@ -26,12 +25,12 @@ type Props = {
 };
 
 const FlightEditor = (props: Props) => {
+  const { requiredValidationRule } = validationRules;
+  const successText = "Редактирование успешно завершено!";
+
   const dispatch = useAppDispatch();
   const editorParams = useAppSelector((state) => state.flightBoard.editorParams);
 
-  const { requiredValidationRule } = validationRules;
-
-  const successText = "Редактирование успешно завершено!";
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
 
   const { loading, sendReq } = useFetcher<typeof FlightDataService.edit, unknown>(
@@ -46,11 +45,6 @@ const FlightEditor = (props: Props) => {
     setValue("departure_time", departure_time);
     setValue("checkin_time", checkin_time);
   }
-
-  useEffect(() => {
-    if (isEmpty(editorParams)) return;
-    setDefaultValues();
-  }, [editorParams]);
 
   const {
     register,
@@ -68,13 +62,6 @@ const FlightEditor = (props: Props) => {
     setIsDialogVisible(true);
   }
 
-  useEffect(() => {
-    if (!isEmpty(editorParams)) {
-      dispatch(flightBoardSliceActions.resetEditParams());
-      openDialog();
-    }
-  }, [editorParams]);
-
   function closeDialog() {
     reset();
     setIsDialogVisible(false);
@@ -85,6 +72,18 @@ const FlightEditor = (props: Props) => {
   const submit = handleSubmit(async (data) => {
     await sendReq(data);
   });
+
+  useEffect(() => {
+    if (!isEmpty(editorParams)) {
+      dispatch(flightBoardSliceActions.resetEditParams());
+      openDialog();
+    }
+  }, [editorParams]);
+
+  useEffect(() => {
+    if (isEmpty(editorParams)) return;
+    setDefaultValues();
+  }, [editorParams]);
 
   return (
     <>

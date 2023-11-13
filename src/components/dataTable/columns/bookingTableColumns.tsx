@@ -1,8 +1,9 @@
 import { FlightTableItem } from "../../../http";
 import ActionBar from "../../actionBar/ActionBar.tsx";
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
+import { ColumnConfig } from "../DataTable.types.ts";
 
-export const flightBoardColumns = [
+export const flightBoardColumns: ColumnConfig[] = [
   {
     headerStyle: { width: "3rem" },
   },

@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { RouteObject, createBrowserRouter } from "react-router-dom";
 import NotFound from "../pages/NotFound.tsx";
 import App from "../App.tsx";
 import FlightsBoard from "../pages/flightsBoard/FlightsBoard.tsx";
@@ -6,7 +6,7 @@ import BookingBoard from "../pages/BookingBoard.tsx";
 
 export enum Routes {
   MAIN = "/flights-board",
-  BOOKING= "/booking"
+  BOOKING = "/booking",
 }
 
 const routes: RouteObject[] = [
@@ -32,4 +32,3 @@ const routes: RouteObject[] = [
 ];
 
 export const router = createBrowserRouter(routes);
-

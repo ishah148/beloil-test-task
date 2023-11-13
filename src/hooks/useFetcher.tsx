@@ -25,8 +25,7 @@ function useFetchData<T extends (...args: any[]) => any, D>(
     try {
       response = await cb(...args);
     } catch (e) {
-      const msg =
-        "Что-то пошло не так или проверьте правильность введенных дынных";
+      const msg = "Что-то пошло не так или проверьте правильность введенных дынных";
       if (isAxiosError(e) && !e?.response?.data) {
         setErrorNotification(JSON.stringify(e.message));
         return;
@@ -48,7 +47,7 @@ function useFetchData<T extends (...args: any[]) => any, D>(
       return;
     }
 
-    setSuccessNotification()
+    setSuccessNotification();
     setData(response.data);
   }
 

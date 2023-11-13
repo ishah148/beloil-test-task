@@ -53,14 +53,14 @@ $directions: (
 @include generateSpacing(padding, p);
 @include generateSpacing(margin, m);
 
-.m-a{
-    margin: auto;
+.m-a {
+  margin: auto;
 }
 
-.center{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

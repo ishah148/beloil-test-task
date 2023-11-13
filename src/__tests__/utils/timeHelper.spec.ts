@@ -1,4 +1,4 @@
-import {Formatter} from "../../utils/timeHelper.ts";
+import { Formatter } from "../../utils/timeHelper.ts";
 
 describe("Formatter", () => {
   describe("getDateDDMMYY", () => {
@@ -47,5 +47,4 @@ describe("Formatter", () => {
       expect(result).toEqual(expected);
     });
   });
-
 });

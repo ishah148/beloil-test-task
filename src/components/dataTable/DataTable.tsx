@@ -17,15 +17,13 @@ import { Button } from "primereact/button";
 type Props = {
   flights: FlightTableItem[];
   loading: boolean;
-  onEdit: (editData: Record<string, string>) => void
+  onEdit: (editData: Record<string, string>) => void;
 };
 
 export default function FlightsTable({ flights, loading }: Props) {
   const dispatch = useAppDispatch();
   const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
-  const filterParams = useAppSelector(
-    (state) => state.flightBoard.filterParams,
-  );
+  const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
 
   useEffect(() => {
     console.log("tablepatams", tableParams);
@@ -59,11 +57,7 @@ export default function FlightsTable({ flights, loading }: Props) {
     <>
       <div className="data-table-btns__container">
         <div className="data-table-btns__button">
-          <Button
-            icon="pi pi-refresh"
-            severity="secondary"
-            onClick={resetFilters}
-          >
+          <Button icon="pi pi-refresh" severity="secondary" onClick={resetFilters}>
             Сброс
           </Button>
         </div>

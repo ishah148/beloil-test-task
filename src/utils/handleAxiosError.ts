@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from "axios";
 
 export const handleAxiosError = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
@@ -13,7 +12,7 @@ export const handleAxiosError = (error: unknown): string => {
 
 const decodeErrorMessage = (message: string[] | string) => {
   if (Array.isArray(message)) {
-    return message.join(', ');
+    return message.join(", ");
   }
 
   return message;

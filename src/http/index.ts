@@ -8,18 +8,21 @@ export interface FlightTableItem {
   notes: string;
 }
 
-export interface ApiResponseError { //todo move
+export interface ApiResponseError {
+  //todo move
   error: string;
   [key: string]: number | string | boolean;
 }
 
-export function isFlightTableData(data: unknown[]): data is FlightTableItem[] {//todo move
+export function isFlightTableData(data: unknown[]): data is FlightTableItem[] {
+  //todo move
   if (!data || !data?.[0]) return false;
   return (data as FlightTableItem[])?.[0]?.flight_id !== undefined;
 }
 
-export const isApiError = ( //todo move
-    value: unknown,
+export const isApiError = (
+  //todo move
+  value: unknown,
 ): value is ApiResponseError => {
   return (value as ApiResponseError)?.error !== undefined;
 };
