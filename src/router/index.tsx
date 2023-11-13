@@ -6,7 +6,7 @@ import BookingBoard from "../pages/BookingBoard.tsx";
 
 export enum Routes {
   MAIN = "/flights-board",
-  BOOKING = "/booking",
+  BOOKING = "/booking-board",
 }
 
 const routes: RouteObject[] = [

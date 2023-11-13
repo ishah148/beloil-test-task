@@ -5,30 +5,39 @@ import {
   DataTablePageEvent,
   DataTableSortEvent,
   DataTableStateEvent,
+  DataTableValue,
 } from "primereact/datatable";
 import { Column } from "primereact/column";
 
-import { FlightTableItem } from "../../http";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
 import { Button } from "primereact/button";
-import { ColumnConfig } from "./DataTable.types.ts";
+import { ColumnConfig, TableNames } from "./DataTable.types.ts";
+import { getInitialFilters } from "./utils.ts";
 
 type Props<T> = {
   data: T[];
   loading: boolean;
   onEdit?: (editData: Record<string, string>) => void;
   tableConfig: ColumnConfig[];
+  name: TableNames;
 };
 
-export default function MyDataTable<T>({ data, loading, tableConfig }: Props<T>) {
+export default function MyDataTable<T extends DataTableValue>({
+  data,
+  loading,
+  tableConfig,
+  name,
+}: Props<T>) {
   const dispatch = useAppDispatch();
   const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
   const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
 
   useEffect(() => {
-    console.log("tablepatams", tableParams);
-  }, [tableParams]);
+    resetFilters();
+    dispatch(flightBoardSliceActions.setName(name));
+    dispatch(flightBoardSliceActions.setFilterParams(getInitialFilters(name)));
+  }, []);
 
   const onPage = (event: DataTablePageEvent) => {
     console.log("onPage", event);

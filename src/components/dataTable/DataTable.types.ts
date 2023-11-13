@@ -61,3 +61,5 @@ export interface ColumnConfig {
   body?: (rowData: FlightTableItem) => JSX.Element;
   filterElement?: (options: ColumnFilterElementTemplateOptions) => JSX.Element;
 }
+
+export type TableNames = "flightBoard" | "bookingBoard"

@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PrimeReactProvider } from "primereact/api";
 
 import "primeicons/primeicons.css";
@@ -15,14 +15,17 @@ import Notification from "./components/notification/Notification.tsx";
 
 const App: FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    navigate(Routes.MAIN);
+    if (location.pathname === "/") {
+      navigate(Routes.MAIN);
+    }
   }, []);
 
   return (
     <div className={"layout-wrapper"}>
-      <Provider store={store}>
+      <Provider store={store} >
         <PrimeReactProvider>
           <Notification />
           <Header />

@@ -1,10 +1,9 @@
 import { FC, useEffect } from "react";
 
 import "./FlightsBoard.scss";
-import DataTable from "../../components/dataTable/DataTable.tsx";
 
 import TimeBoard from "../../components/timeboard/TimeBoard.tsx";
-import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
+
 
 import useFetcher from "../../hooks/useFetcher.tsx";
 import { FlightTableItem } from "../../http";
@@ -14,6 +13,8 @@ import { Filters, TableParams } from "../../components/dataTable/DataTable.types
 import { getQuery } from "../../utils/queryConverter.ts";
 import FlightEditor from "../../components/flightEditor/FlightEditor.tsx";
 import { flightBoardConfig } from "../../components/dataTable/columns/flightTableColumns.tsx";
+import MyDataTable from "../../components/dataTable/MyDataTable.tsx";
+import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
 
 const FlightsBoard: FC = () => {
   const updateKey = useAppSelector((state) => state.flightBoard.updateTableKey);
@@ -24,6 +25,10 @@ const FlightsBoard: FC = () => {
     typeof FlightDataService.getFlightsData2,
     FlightTableItem[]
   >(FlightDataService.getFlightsData2);
+
+  useEffect(() => {
+
+  }, []);
 
   useEffect(() => {
     getFlightData(tableParams, filterParams);
@@ -46,7 +51,12 @@ const FlightsBoard: FC = () => {
       <TimeBoard />
       <FlightEditor />
       <FlightCreator />
-      <DataTable data={data} loading={loading} tableConfig={flightBoardConfig} />
+      <MyDataTable<FlightTableItem>
+        name={"flightBoard"}
+        data={data}
+        loading={loading}
+        tableConfig={flightBoardConfig}
+      />
     </main>
   );
 };

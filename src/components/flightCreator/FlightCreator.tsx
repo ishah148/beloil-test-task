@@ -1,12 +1,13 @@
 import EditDialog from "../editDialog/EditDialog.tsx";
 import { Validator } from "../../utils/validator.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { FlightsFieldsNames } from "./types.ts";
+
 import { Button } from "primereact/button";
 import { useState } from "react";
 import useFetcher from "../../hooks/useFetcher.tsx";
 import { FlightDataService } from "../../http/services/flights.ts";
 import { validationRules } from "../../constants";
+import { FlightsFieldsNames } from "./types.ts";
 
 type Props = {
   // isDialogVisible: boolean;

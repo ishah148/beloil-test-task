@@ -1,8 +1,6 @@
 import { $api } from "../api";
 import { getMockFlightData } from "../api/mockFetch.ts";
-import { ApiResponseError, BookingTableItem, FlightTableItem } from "../index.ts";
-import { FlightsFieldsNames } from "../../components/flightCreator/types.ts";
-import { FlightsEditFieldsNames } from "../../components/flightEditor/types.ts";
+import { ApiResponseError, BookingTableItem } from "../index.ts";
 import { BookingFieldsNames } from "../../components/bookingEditor/types.ts";
 
 export class BookingDataService {
@@ -16,7 +14,7 @@ export class BookingDataService {
     params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<BookingTableItem[] | ApiResponseError>(
-      `src/http/services/mockFlights.json`,
+      `src/http/services/mockBooking.json`,
       { params },
     );
   }
