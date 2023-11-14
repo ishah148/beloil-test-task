@@ -8,10 +8,10 @@ import useFetcher from "../hooks/useFetcher.tsx";
 import { BookingTableItem } from "../http";
 import { Filters, TableParams } from "../components/dataTable/DataTable.types.ts";
 import { getQuery } from "../utils/queryConverter.ts";
-import { BookingDataService } from "../http/services/booking.ts";
-import MyDataTable from "../components/dataTable/MyDataTable.tsx";
-import BookingCreator from "../components/bookingCreator/BookingCreator.tsx";
-import BookingEditor from "../components/bookingEditor/BookingEditor.tsx";
+import { BookingDataService } from "../services/booking.ts";
+import DataTable from "../components/dataTable/DataTable.tsx";
+import BookingCreator from "../components/booking/bookingCreator/BookingCreator.tsx";
+import BookingEditor from "../components/booking/bookingEditor/BookingEditor.tsx";
 
 // import BookingCreator from "../components/bookingCreator/BookingCreator.tsx";
 
@@ -47,7 +47,7 @@ const BookingBoard: FC = () => {
         <TimeBoard />
         <BookingCreator />
         <BookingEditor />
-        <MyDataTable<BookingTableItem>
+        <DataTable<BookingTableItem>
           name={"bookingBoard"}
           data={data}
           loading={loading}

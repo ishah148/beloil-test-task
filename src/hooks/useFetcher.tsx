@@ -1,19 +1,16 @@
-
 import { useState } from "react";
 import { isAxiosError } from "axios";
 import { isApiError } from "../http";
 import { useAppDispatch } from "../store";
 import { notificationSliceActions } from "../store/notifications/notificationSlice.ts";
-import {FunctionCb} from "../index.ts";
+import { FunctionCb } from "../index.ts";
 
 function useFetchData<T extends FunctionCb, D>(
+  // eslint-disable-next-line
   cb: any,
   showNotification: boolean = true,
   successMsg?: string,
 ) {
-  // type RemoveAxiosResponse<C extends AxiosResponse> = C extends AxiosResponse<infer T> ? T : any;
-  // type ResultData = Subtract<RemoveAxiosResponse<Awaited<ReturnType<T>>>, ApiResponseError>;
-
   const dispatch = useAppDispatch();
 
   const [data, setData] = useState<D>([] as D);

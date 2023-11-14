@@ -1,11 +1,11 @@
 import { Button } from "primereact/button";
-import {BookingTableItem, FlightTableItem} from "../../http";
-import { useAppDispatch } from "../../store";
-import useFetcher from "../../hooks/useFetcher.tsx";
-import { dataTableSliceActions } from "../../store/dataTable/dataTableSlice.ts";
+import {BookingTableItem, FlightTableItem} from "../../../http";
+import { useAppDispatch } from "../../../store";
+import useFetcher from "../../../hooks/useFetcher.tsx";
+import { dataTableSliceActions } from "../../../store/dataTable/dataTableSlice.ts";
 
-import { bookingBoardSliceActions } from "../../store/bookingBoard/bookingBoardSlice.ts";
-import { BookingDataService } from "../../http/services/booking.ts";
+import { bookingBoardSliceActions } from "../../../store/bookingBoard/bookingBoardSlice.ts";
+import { BookingDataService } from "../../../services/booking.ts";
 
 type Props = {
   isDeleteBtnLoading?: true;

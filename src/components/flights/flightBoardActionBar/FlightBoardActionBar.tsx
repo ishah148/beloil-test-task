@@ -1,15 +1,15 @@
 import "./ActionBar.scss";
 import { Button } from "primereact/button";
-import { FlightTableItem } from "../../http";
-import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
-import { useAppDispatch } from "../../store";
-import useFetcher from "../../hooks/useFetcher.tsx";
-import { dataTableSliceActions } from "../../store/dataTable/dataTableSlice.ts";
-import {FlightDataService} from "../../http/services/flights.ts";
+import {BookingTableItem, FlightTableItem} from "../../../http";
+import { flightBoardSliceActions } from "../../../store/flightBoard/flightBoardSlice.ts";
+import { useAppDispatch } from "../../../store";
+import useFetcher from "../../../hooks/useFetcher.tsx";
+import { dataTableSliceActions } from "../../../store/dataTable/dataTableSlice.ts";
+import {FlightDataService} from "../../../services/flights.ts";
 
 type Props = {
   isDeleteBtnLoading?: true;
-  rowData: FlightTableItem;
+  rowData: FlightTableItem | BookingTableItem;
 };
 function FlightBoardActionBar(props: Props) {
   const { isDeleteBtnLoading, rowData } = props;

@@ -109,8 +109,8 @@ section {
 }
 
 .p-component-overlay {
-  top: 50px;
-  height: calc(100% - 50px - 70px);
+  top: 215px;
+  height: calc(100% - 50px - 235px);
 }
 
 .data-table-btns__container {
@@ -144,3 +144,33 @@ section {
     justify-content: center;
   }
 }
+
+.dialog-form {
+  //display: flex;
+  max-width: 450px;
+  margin-top: 5px;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  input {
+    max-width: 450px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  input[type="submit"] {
+    margin-top: 20px;
+  }
+  span:has(input) {
+    display: block;
+  }
+  p,
+  span,
+  label {
+    margin-left: 5px;
+  }
+  p,
+  label {
+    line-height: 1.6rem;
+  }
+}
+

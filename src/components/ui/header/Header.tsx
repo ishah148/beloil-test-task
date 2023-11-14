@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { NavLink } from "react-router-dom";
-import { Routes } from "../../router";
-import "../../assets/styles/main.scss";
+import { Routes } from "../../../router";
+import "../../../assets/styles/main.scss";
 
 const Header: FC = () => {
   return (

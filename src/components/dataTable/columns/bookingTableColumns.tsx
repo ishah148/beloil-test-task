@@ -1,6 +1,6 @@
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
 import { ColumnConfig } from "../DataTable.types.ts";
-import BookingBoardActionBar from "../../bookingBoardActionBar/BookingBoardActionBar.tsx";
+import BookingBoardActionBar from "../../booking/bookingBoardActionBar/BookingBoardActionBar.tsx";
 
 
 

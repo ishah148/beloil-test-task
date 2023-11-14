@@ -1,15 +1,15 @@
-import EditDialog from "../editDialog/EditDialog.tsx";
-import { Validator } from "../../utils/validator.ts";
+import EditDialog from "../../ui/editDialog/EditDialog.tsx";
+import { Validator } from "../../../utils/validator.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FlightsEditFieldsNames } from "./types.ts";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
-import useFetcher from "../../hooks/useFetcher.tsx";
-import { FlightDataService } from "../../http/services/flights.ts";
-import { validationRules } from "../../constants";
-import { useAppDispatch, useAppSelector } from "../../store";
-import { isEmpty } from "../../utils/common.ts";
-import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
+import useFetcher from "../../../hooks/useFetcher.tsx";
+import { FlightDataService } from "../../../services/flights.ts";
+import { validationRules } from "../../../constants";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { isEmpty } from "../../../utils/common.ts";
+import { flightBoardSliceActions } from "../../../store/flightBoard/flightBoardSlice.ts";
 
 type CellData = {
   flight_id: string;

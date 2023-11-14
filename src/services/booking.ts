@@ -1,20 +1,14 @@
-import { $api } from "../api";
-import { getMockFlightData } from "../api/mockFetch.ts";
-import { ApiResponseError, BookingTableItem } from "../index.ts";
-import { BookingFieldsNames } from "../../components/bookingEditor/types.ts";
+import { $api } from "../http/api";
+
+import { ApiResponseError, BookingTableItem } from "../http";
+import { BookingFieldsNames } from "../components/booking/bookingEditor/types.ts";
 
 export class BookingDataService {
-  static async getFlightsData() {
-    return (await getMockFlightData(1, 10)) as unknown as
-      | BookingTableItem[]
-      | ApiResponseError;
-  }
-
   static async getFlightsData2(
     params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<BookingTableItem[] | ApiResponseError>(
-      `src/http/services/mockBooking.json`,
+      `src/services/mockBooking.json`,
       { params },
     );
   }

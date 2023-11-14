@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {
-  DataTable,
+  DataTable as PrimeDataTable,
   DataTableFilterMeta,
   DataTablePageEvent,
   DataTableSortEvent,
@@ -24,7 +24,7 @@ type Props<T> = {
   name: TableNames;
 };
 
-export default function MyDataTable<T extends DataTableValue>({
+export default function DataTable<T extends DataTableValue>({
   data,
   loading,
   tableConfig,
@@ -82,7 +82,7 @@ export default function MyDataTable<T extends DataTableValue>({
 
   return (
     <div className="card">
-      <DataTable
+      <PrimeDataTable
         value={data}
         lazy
         // filterDisplay="row"
@@ -126,7 +126,7 @@ export default function MyDataTable<T extends DataTableValue>({
             />
           );
         })}
-      </DataTable>
+      </PrimeDataTable>
     </div>
   );
 }

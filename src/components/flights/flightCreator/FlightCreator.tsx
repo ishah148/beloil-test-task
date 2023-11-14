@@ -1,26 +1,28 @@
-import { useState } from "react";
-import { validationRules } from "../../constants";
-import { useForm } from "react-hook-form";
-
-import useFetcher from "../../hooks/useFetcher.tsx";
-import EditDialog from "../editDialog/EditDialog.tsx";
+import EditDialog from "../../ui/editDialog/EditDialog.tsx";
+import { Validator } from "../../../utils/validator.ts";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "primereact/button";
-import { BookingFieldsNames } from "./types.ts";
-import { BookingDataService } from "../../http/services/booking.ts";
+import { useState } from "react";
+import useFetcher from "../../../hooks/useFetcher.tsx";
+import { FlightDataService } from "../../../services/flights.ts";
+import { validationRules } from "../../../constants";
+import { FlightsFieldsNames } from "./types.ts";
 
 type Props = {
   // isDialogVisible: boolean;
   onCloseDialog?: () => void;
+  onSubmit?: SubmitHandler<FlightsFieldsNames>;
+  isLoading?: boolean;
 };
 
-const BookingCreator = (props: Props) => {
+const FlightCreator = (props: Props) => {
   const { requiredValidationRule, onlyStringValidationRule } = validationRules;
-  const successText = "Бронь успешно завершено!";
+  const successText = "Создание рейса успешно завершено!";
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
 
-  const { loading, sendReq } = useFetcher<typeof BookingDataService.create, unknown>(
-    BookingDataService.create,
+  const { loading, sendReq } = useFetcher<typeof FlightDataService.create, unknown>(
+    FlightDataService.create,
     true,
     successText,
   );
@@ -29,10 +31,12 @@ const BookingCreator = (props: Props) => {
     register,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors: hookFormErrors },
-  } = useForm<BookingFieldsNames>();
+  } = useForm<FlightsFieldsNames>();
 
-  const isSubmitBtnDisabled = Object.keys(hookFormErrors).length > 0 || loading;
+  const isSubmitBtnDisabled =
+    Object.keys(hookFormErrors).length > 0 || props?.isLoading || loading;
 
   function openDialog() {
     setIsDialogVisible(true);
@@ -82,15 +86,15 @@ const BookingCreator = (props: Props) => {
           </label>
 
           <label>
-            Имя
+            Город (Аэропорт)
             <br />
-            {hookFormErrors.first_name && (
+            {hookFormErrors.city && (
               <span className="invalid-validation">
-                {hookFormErrors.first_name.message}
+                {hookFormErrors.city.message}
               </span>
             )}
             <input
-              {...register("first_name", {
+              {...register("city", {
                 ...requiredValidationRule,
                 ...onlyStringValidationRule,
               })}
@@ -100,35 +104,82 @@ const BookingCreator = (props: Props) => {
           </label>
 
           <label>
-            Фамилия
+            Дата и время вылета
             <br />
-            {hookFormErrors.last_name && (
+            {hookFormErrors.departure_time && (
               <span className="invalid-validation">
-                {hookFormErrors.last_name.message}
+                {hookFormErrors.departure_time.message}
               </span>
             )}
             <input
-              {...register("last_name", {
+              {...register("departure_time", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
-              type={"text"}
+              type={"datetime-local"}
             />
           </label>
 
           <label>
-            Отчество
+            Авиакомпания
             <br />
-            {hookFormErrors.surname && (
+            {hookFormErrors.airline_name && (
               <span className="invalid-validation">
-                {hookFormErrors.surname.message}
+                {hookFormErrors.airline_name.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
-              {...register("surname", {
+              {...register("airline_name", {
                 ...requiredValidationRule,
                 ...onlyStringValidationRule,
+              })}
+            />
+          </label>
+
+          <label>
+            Дата и время регистрации
+            <br />
+            {hookFormErrors.checkin_time && (
+              <span className="invalid-validation">
+                {hookFormErrors.checkin_time.message}
+              </span>
+            )}
+            <input
+              className="p-inputtext p-component"
+              type={"datetime-local"}
+              {...register("checkin_time", {
+                ...requiredValidationRule,
+                validate: () =>
+                  Validator.validateRegisterDate(
+                    getValues("checkin_time"),
+                    getValues("departure_time"),
+                  ),
+              })}
+            />
+          </label>
+
+          <label>
+            Количество мест
+            <br />
+            {hookFormErrors.seat_capacity && (
+              <span className="invalid-validation">
+                {hookFormErrors.seat_capacity.message}
+              </span>
+            )}
+            <input
+              className="p-inputtext p-component"
+              type={"number"}
+              {...register("seat_capacity", {
+                ...requiredValidationRule,
+                min: {
+                  value: 1,
+                  message: "Количество мест меньше 1",
+                },
+                max: {
+                  value: 99,
+                  message: "Количество мест превышает 99",
+                },
               })}
             />
           </label>
@@ -157,4 +208,4 @@ const BookingCreator = (props: Props) => {
   );
 };
 
-export default BookingCreator;
+export default FlightCreator;

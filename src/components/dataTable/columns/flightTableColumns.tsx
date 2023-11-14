@@ -1,5 +1,4 @@
-import { FlightTableItem } from "../../../http";
-import FlightBoardActionBar from "../../flightBoardActionBar/FlightBoardActionBar.tsx";
+import FlightBoardActionBar from "../../flights/flightBoardActionBar/FlightBoardActionBar.tsx";
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
 import { ColumnConfig } from "../DataTable.types.ts";
 
@@ -60,7 +59,7 @@ export const flightBoardConfig: ColumnConfig[] = [
   {
     field: "actions",
     header: "Действия",
-    body: (rowData: FlightTableItem) => (
+    body: (rowData) => (
       <FlightBoardActionBar
         key={"city"}
         rowData={rowData}

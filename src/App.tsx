@@ -6,8 +6,8 @@ import "primeicons/primeicons.css";
 import "../src/assets/styles/main.scss";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 
-import Footer from "./components/footer/Footer.tsx";
-import Header from "./components/header/Header.tsx";
+import Footer from "./components/ui/footer/Footer.tsx";
+import Header from "./components/ui/header/Header.tsx";
 import { Routes } from "./router";
 import { Provider } from "react-redux";
 import { store } from "./store";
