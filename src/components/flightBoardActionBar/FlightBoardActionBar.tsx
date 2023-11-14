@@ -1,39 +1,35 @@
 import "./ActionBar.scss";
 import { Button } from "primereact/button";
 import { FlightTableItem } from "../../http";
-import { useEffect } from "react";
 import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
 import { useAppDispatch } from "../../store";
 import useFetcher from "../../hooks/useFetcher.tsx";
-import { FlightDataService } from "../../http/services/flights.ts";
+import { dataTableSliceActions } from "../../store/dataTable/dataTableSlice.ts";
+import {FlightDataService} from "../../http/services/flights.ts";
 
 type Props = {
-  onRemoveClick?: () => void;
-  onEditClick?: () => void;
   isDeleteBtnLoading?: true;
   rowData: FlightTableItem;
 };
-const ActionBar = (props: Props) => {
+function FlightBoardActionBar(props: Props) {
   const { isDeleteBtnLoading, rowData } = props;
   const dispatch = useAppDispatch();
 
-  const { loading: isDeleteLoading = true, sendReq } = useFetcher<
-    typeof FlightDataService.delete,
-    Record<string, string>
-  >(FlightDataService.delete);
+  const {
+    loading: isDeleteLoading = true,
+    sendReq,
+  } = useFetcher<typeof FlightDataService.delete, Record<string, string>>(
+      FlightDataService.delete,
+  );
 
   async function remove() {
     await sendReq(rowData.flight_id);
-    dispatch(flightBoardSliceActions.updateTable());
+    dispatch(dataTableSliceActions.updateTable());
   }
 
   async function edit() {
     dispatch(flightBoardSliceActions.setEditParams(rowData));
   }
-
-  useEffect(() => {
-    // console.log("rowData", rowData);
-  }, []);
 
   return (
     <div className="action-bar-container">
@@ -50,6 +46,6 @@ const ActionBar = (props: Props) => {
       </Button>
     </div>
   );
-};
+}
 
-export default ActionBar;
+export default FlightBoardActionBar;

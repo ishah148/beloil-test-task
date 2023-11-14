@@ -1,20 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { BookingTableItem } from "../../http";
-import { Filters, TableParams } from "../../components/dataTable/DataTable.types.ts";
+import { BookingTableItem, FlightTableItem } from "../../http";
+import { Filters, TableNames, TableParams } from "../../components/dataTable/DataTable.types.ts";
 import { generateRandomString } from "../../utils/randomStringGenerator.ts";
 import { getInitialFilters } from "../../components/dataTable/utils.ts";
 
 interface State {
-  data: BookingTableItem[];
+  name: TableNames
+  data: FlightTableItem[] | BookingTableItem[];
   loading: boolean;
   error: string | null;
   success: boolean;
   updateTableKey: string;
   tableParams: TableParams;
   filterParams: Filters;
-  editorParams: Partial<BookingTableItem>;
 }
 
 const initialTableParams: TableParams = {
@@ -29,18 +29,18 @@ const initialTableParams: TableParams = {
 };
 
 const initialState: State = {
+  name:"" as TableNames,
   data: [],
   loading: false,
   error: null,
   success: false,
   updateTableKey: "",
   tableParams: initialTableParams,
-  filterParams: getInitialFilters("bookingBoard") as Filters,
-  editorParams: {},
+  filterParams: {} as Filters,
 };
 
-export const bookingBoardSlice = createSlice({
-  name: "flightBoardData",
+export const dataTableSlice = createSlice({
+  name: "dataTable",
   initialState,
   reducers: {
     setTableParams: (state, action: PayloadAction<Partial<TableParams>>) => {
@@ -53,17 +53,12 @@ export const bookingBoardSlice = createSlice({
       Object.assign(state.filterParams, action.payload);
     },
     resetFilters: (state) => {
-      Object.assign(state.filterParams, getInitialFilters("flightBoard"));
-    },
-    setEditParams: (state, action: PayloadAction<Partial<BookingTableItem>>) => {
-      Object.assign(state.editorParams, action.payload);
-    },
-    resetEditParams: (state) => {
-      state.editorParams = {};
+      Object.assign(state.filterParams, getInitialFilters(state.name));
     },
   },
 });
 
-export const bookingBoardSliceActions = bookingBoardSlice.actions;
 
-export default bookingBoardSlice.reducer;
+export const dataTableSliceActions = dataTableSlice.actions;
+
+export default dataTableSlice.reducer;

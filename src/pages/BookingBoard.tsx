@@ -10,12 +10,15 @@ import { Filters, TableParams } from "../components/dataTable/DataTable.types.ts
 import { getQuery } from "../utils/queryConverter.ts";
 import { BookingDataService } from "../http/services/booking.ts";
 import MyDataTable from "../components/dataTable/MyDataTable.tsx";
+import BookingCreator from "../components/bookingCreator/BookingCreator.tsx";
+import BookingEditor from "../components/bookingEditor/BookingEditor.tsx";
+
 // import BookingCreator from "../components/bookingCreator/BookingCreator.tsx";
 
 const BookingBoard: FC = () => {
-  const updateKey = useAppSelector((state) => state.flightBoard.updateTableKey);
-  const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
-  const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
+  const updateKey = useAppSelector((state) => state.dataTable.updateTableKey);
+  const tableParams = useAppSelector((state) => state.dataTable.tableParams);
+  const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
   const { data, sendReq, loading } = useFetcher<
     typeof BookingDataService.getFlightsData2,
@@ -42,7 +45,8 @@ const BookingBoard: FC = () => {
     <>
       <main>
         <TimeBoard />
-        {/*<BookingCreator/>*/}
+        <BookingCreator />
+        <BookingEditor />
         <MyDataTable<BookingTableItem>
           name={"bookingBoard"}
           data={data}

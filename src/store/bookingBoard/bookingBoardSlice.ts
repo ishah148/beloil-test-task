@@ -1,25 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { FlightTableItem } from "../../http";
-
+import { BookingTableItem } from "../../http";
 
 interface State {
-
-  editorParams: Partial<FlightTableItem>;
+  editorParams: Partial<BookingTableItem>;
 }
-
-
 
 const initialState: State = {
   editorParams: {},
 };
 
-export const flightBoardSlice = createSlice({
-  name: "flightBoardData",
+export const bookingBoardSlice = createSlice({
+  name: "bookingBoardData",
   initialState,
   reducers: {
-    setEditParams: (state, action: PayloadAction<Partial<FlightTableItem>>) => {
+    setEditParams: (state, action: PayloadAction<Partial<BookingTableItem>>) => {
       Object.assign(state.editorParams, action.payload);
     },
     resetEditParams: (state) => {
@@ -28,7 +24,6 @@ export const flightBoardSlice = createSlice({
   },
 });
 
+export const bookingBoardSliceActions = bookingBoardSlice.actions;
 
-export const flightBoardSliceActions = flightBoardSlice.actions;
-
-export default flightBoardSlice.reducer;
+export default bookingBoardSlice.reducer;

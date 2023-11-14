@@ -17,9 +17,9 @@ import MyDataTable from "../../components/dataTable/MyDataTable.tsx";
 import FlightCreator from "../../components/flightCreator/FlightCreator.tsx";
 
 const FlightsBoard: FC = () => {
-  const updateKey = useAppSelector((state) => state.flightBoard.updateTableKey);
-  const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
-  const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
+  const updateKey = useAppSelector((state) => state.dataTable.updateTableKey);
+  const tableParams = useAppSelector((state) => state.dataTable.tableParams);
+  const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
   const { data, sendReq, loading } = useFetcher<
     typeof FlightDataService.getFlightsData2,

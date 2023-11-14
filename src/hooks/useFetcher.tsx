@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useState } from "react";
 import { isAxiosError } from "axios";
 import { isApiError } from "../http";
 import { useAppDispatch } from "../store";
 import { notificationSliceActions } from "../store/notifications/notificationSlice.ts";
+import {FunctionCb} from "../index.ts";
 
-function useFetchData<T extends (...args: any[]) => any, D>(
+function useFetchData<T extends FunctionCb, D>(
   cb: any,
   showNotification: boolean = true,
   successMsg?: string,
@@ -19,7 +20,7 @@ function useFetchData<T extends (...args: any[]) => any, D>(
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
-  async function sendReq(...args: Parameters<T>) {
+  async function sendReq(...args: Parameters<T>[] | Parameters<T>) {
     setLoading(true);
     let response;
     try {

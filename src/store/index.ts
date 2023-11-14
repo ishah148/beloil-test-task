@@ -1,12 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import flightBoardReducer from "./flightBoard/flightBoardSlice.ts";
-import notificationReducer from "./notifications/notificationSlice.ts";
+import { flightBoardSlice } from "./flightBoard/flightBoardSlice.ts";
+import { bookingBoardSlice } from "./bookingBoard/bookingBoardSlice.ts";
+import { dataTableSlice } from "./dataTable/dataTableSlice.ts";
+import { notificationSlice } from "./notifications/notificationSlice.ts";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const store = configureStore({
   reducer: {
-    flightBoard: flightBoardReducer,
-    notification: notificationReducer,
+    flightBoard: flightBoardSlice.reducer,
+    bookingBoard: bookingBoardSlice.reducer,
+    dataTable: dataTableSlice.reducer,
+    notification: notificationSlice.reducer,
   },
 });
 

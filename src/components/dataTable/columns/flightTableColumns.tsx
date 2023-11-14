@@ -1,5 +1,5 @@
 import { FlightTableItem } from "../../../http";
-import ActionBar from "../../actionBar/ActionBar.tsx";
+import FlightBoardActionBar from "../../flightBoardActionBar/FlightBoardActionBar.tsx";
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
 import { ColumnConfig } from "../DataTable.types.ts";
 
@@ -61,11 +61,9 @@ export const flightBoardConfig: ColumnConfig[] = [
     field: "actions",
     header: "Действия",
     body: (rowData: FlightTableItem) => (
-      <ActionBar
+      <FlightBoardActionBar
         key={"city"}
         rowData={rowData}
-        onEditClick={() => {}}
-        onRemoveClick={() => {}}
       />
     ),
   },

@@ -1,4 +1,4 @@
-import { FlightTableItem } from "../../http";
+import {BookingTableItem, FlightTableItem} from "../../http";
 import { ColumnFilterElementTemplateOptions } from "primereact/column";
 
 export interface Country {
@@ -58,7 +58,7 @@ export interface ColumnConfig {
   filter?: boolean;
   filterPlaceholder?: string;
   dataType?: string;
-  body?: (rowData: FlightTableItem) => JSX.Element;
+  body?: (rowData: FlightTableItem | BookingTableItem) => JSX.Element;
   filterElement?: (options: ColumnFilterElementTemplateOptions) => JSX.Element;
 }
 

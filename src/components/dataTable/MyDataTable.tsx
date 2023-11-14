@@ -10,10 +10,11 @@ import {
 import { Column } from "primereact/column";
 
 import { useAppDispatch, useAppSelector } from "../../store";
-import { flightBoardSliceActions } from "../../store/flightBoard/flightBoardSlice.ts";
+
 import { Button } from "primereact/button";
 import { ColumnConfig, TableNames } from "./DataTable.types.ts";
 import { getInitialFilters } from "./utils.ts";
+import {dataTableSliceActions} from "../../store/dataTable/dataTableSlice.ts";
 
 type Props<T> = {
   data: T[];
@@ -30,37 +31,36 @@ export default function MyDataTable<T extends DataTableValue>({
   name,
 }: Props<T>) {
   const dispatch = useAppDispatch();
-  const tableParams = useAppSelector((state) => state.flightBoard.tableParams);
-  const filterParams = useAppSelector((state) => state.flightBoard.filterParams);
+  const tableParams = useAppSelector((state) => state.dataTable.tableParams);
+  const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
   useEffect(() => {
     resetFilters();
-    dispatch(flightBoardSliceActions.setName(name));
-    dispatch(flightBoardSliceActions.setFilterParams(getInitialFilters(name)));
+    dispatch(dataTableSliceActions.setFilterParams(getInitialFilters(name)));
   }, []);
 
   const onPage = (event: DataTablePageEvent) => {
     console.log("onPage", event);
     const { page, pageCount, rows } = event;
-    dispatch(flightBoardSliceActions.setTableParams({ page, rows, pageCount }));
+    dispatch(dataTableSliceActions.setTableParams({ page, rows, pageCount }));
   };
 
   const onSort = (event: DataTableSortEvent) => {
     console.log("onSort", event);
     const { sortOrder, sortField } = event;
-    dispatch(flightBoardSliceActions.setTableParams({ sortOrder, sortField }));
+    dispatch(dataTableSliceActions.setTableParams({ sortOrder, sortField }));
   };
   const onFilter = (event: DataTableStateEvent) => {
     console.log("onFilter", event.filters);
-    dispatch(flightBoardSliceActions.setFilterParams(event.filters));
+    dispatch(dataTableSliceActions.setFilterParams(event.filters));
   };
 
   const resetFilters = () => {
-    dispatch(flightBoardSliceActions.resetFilters());
+    dispatch(dataTableSliceActions.resetFilters());
   };
 
   const applyFilters = () => {
-    dispatch(flightBoardSliceActions.updateTable());
+    dispatch(dataTableSliceActions.updateTable());
   };
 
   const tableHeader = (
