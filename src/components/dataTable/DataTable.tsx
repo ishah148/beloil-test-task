@@ -40,18 +40,15 @@ export default function DataTable<T extends DataTableValue>({
   }, []);
 
   const onPage = (event: DataTablePageEvent) => {
-    console.log("onPage", event);
     const { page, pageCount, rows } = event;
     dispatch(dataTableSliceActions.setTableParams({ page, rows, pageCount }));
   };
 
   const onSort = (event: DataTableSortEvent) => {
-    console.log("onSort", event);
     const { sortOrder, sortField } = event;
     dispatch(dataTableSliceActions.setTableParams({ sortOrder, sortField }));
   };
   const onFilter = (event: DataTableStateEvent) => {
-    console.log("onFilter", event.filters);
     dispatch(dataTableSliceActions.setFilterParams(event.filters));
   };
 
@@ -85,19 +82,18 @@ export default function DataTable<T extends DataTableValue>({
       <PrimeDataTable
         value={data}
         lazy
-        // filterDisplay="row"
         header={tableHeader}
-        resizableColumns
-        editMode="cell"
+        // resizableColumns
         dataKey="flight_id"
         paginator
-        // first={lazyState.first}
+        first={tableParams.first}
         rows={tableParams.rows}
         totalRecords={tableParams.totalRecords + 100}
         onPage={onPage}
         onSort={onSort}
         onFilter={onFilter}
         filters={filterParams as DataTableFilterMeta}
+        globalFilter={null}
         filterDisplay="row"
         sortField={tableParams.sortField}
         sortOrder={tableParams.sortOrder}

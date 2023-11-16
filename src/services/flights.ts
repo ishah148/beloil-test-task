@@ -7,6 +7,15 @@ import { FlightsEditFieldsNames } from "../components/flights/flightEditor/types
 export class FlightDataService {
 
   static async getFlightsData2(
+      params: Record<string, string | number | boolean | undefined | null>,
+  ) {
+    return $api.get<FlightTableItem[] | ApiResponseError>(
+        `/flights`,
+        { params },
+    );
+  }
+
+  static async getFlightsData(
     params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<FlightTableItem[] | ApiResponseError>(

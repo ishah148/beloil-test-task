@@ -2,7 +2,7 @@ import { dateFiltersNames } from "../constants";
 import { Formatter } from "./timeHelper.ts";
 import { Filters, TableParams } from "../components/dataTable/DataTable.types.ts";
 
-export function getFilterQuery(params: Filters) {
+function getFilterQuery(params: Filters) {
   const newParams: Record<string, string> = {};
 
   for (const param in params) {
@@ -16,7 +16,7 @@ export function getFilterQuery(params: Filters) {
   return newParams;
 }
 
-export function getTableQuery(params: TableParams) {
+function getTableQuery(params: TableParams) {
   return params;
 }
 

@@ -4,7 +4,17 @@ import { ApiResponseError, BookingTableItem } from "../http";
 import { BookingFieldsNames } from "../components/booking/bookingEditor/types.ts";
 
 export class BookingDataService {
+
   static async getFlightsData2(
+      params: Record<string, string | number | boolean | undefined | null>,
+  ) {
+    return $api.get<BookingTableItem[] | ApiResponseError>(
+        `/flights`,
+        { params },
+    );
+  }
+
+  static async getFlightsData(
     params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<BookingTableItem[] | ApiResponseError>(
