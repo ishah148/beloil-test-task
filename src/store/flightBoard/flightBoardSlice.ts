@@ -5,7 +5,6 @@ import { FlightTableItem } from "../../http";
 
 
 interface State {
-
   editorParams: Partial<FlightTableItem>;
 }
 

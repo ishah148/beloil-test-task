@@ -52,8 +52,8 @@ export const dataTableSlice = createSlice({
     setFilterParams: (state, action: PayloadAction<Partial<TableParams>>) => {
       Object.assign(state.filterParams, action.payload);
     },
-    resetFilters: (state) => {
-      Object.assign(state.filterParams, getInitialFilters(state.name));
+    resetFilters: (state,action: PayloadAction<TableNames>) => {
+      Object.assign(state.filterParams, getInitialFilters(action.payload));
     },
   },
 });

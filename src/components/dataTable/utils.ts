@@ -3,7 +3,6 @@ import { ColumnConfig, Filters, TableNames } from "./DataTable.types.ts";
 import { bookingBoardConfig } from "./columns/bookingTableColumns.tsx";
 
 export function getInitialFilters(tableName: TableNames) {
-
   let columns: ColumnConfig[];
   if (tableName === "bookingBoard") {
     columns = bookingBoardConfig;

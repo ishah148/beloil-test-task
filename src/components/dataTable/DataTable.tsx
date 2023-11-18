@@ -53,7 +53,7 @@ export default function DataTable<T extends DataTableValue>({
   };
 
   const resetFilters = () => {
-    dispatch(dataTableSliceActions.resetFilters());
+    dispatch(dataTableSliceActions.resetFilters(name));
   };
 
   const applyFilters = () => {
@@ -93,7 +93,6 @@ export default function DataTable<T extends DataTableValue>({
         onSort={onSort}
         onFilter={onFilter}
         filters={filterParams as DataTableFilterMeta}
-        globalFilter={null}
         filterDisplay="row"
         sortField={tableParams.sortField}
         sortOrder={tableParams.sortOrder}

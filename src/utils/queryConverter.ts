@@ -8,10 +8,12 @@ function getFilterQuery(params: Filters) {
   for (const param in params) {
     const fieldName = param;
     let value = params[param].value;
-    if (dateFiltersNames.includes(fieldName)) {
+    if (dateFiltersNames.includes(fieldName) && value) {
       value = Formatter.getTimeMS(value).toString();
     }
-    newParams[fieldName] = value;
+    if (value) {
+      newParams[fieldName] = value;
+    }
   }
   return newParams;
 }
