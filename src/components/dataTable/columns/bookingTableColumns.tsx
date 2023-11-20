@@ -9,21 +9,21 @@ export const bookingBoardConfig: ColumnConfig[] = [
     headerStyle: { width: "3rem" },
   },
   {
-    field: "flight_id",
+    field: "flightId",
     header: "Номер рейса",
     sortable: true,
     filter: true,
     filterPlaceholder: "Номер рейса",
   },
   {
-    field: "first_name",
+    field: "firstName",
     sortable: true,
     header: "Имя",
     filter: true,
     filterPlaceholder: "Имя",
   },
   {
-    field: "last_name",
+    field: "lastName",
     sortable: true,
     header: "Фамилия",
     filter: true,
@@ -38,7 +38,7 @@ export const bookingBoardConfig: ColumnConfig[] = [
   },
 
   {
-    field: "booking_time",
+    field: "bookingTime",
     sortable: true,
     header: "Дата брони",
     filter: true,
@@ -47,7 +47,7 @@ export const bookingBoardConfig: ColumnConfig[] = [
     filterElement: dateFilterTemplate,
   },
   {
-    field: "seat_number",
+    field: "seatNumber",
     sortable: true,
     header: "Кол-во мест",
     filter: true,

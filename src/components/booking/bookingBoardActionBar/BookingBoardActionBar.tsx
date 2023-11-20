@@ -21,7 +21,7 @@ function BookingBoardActionBar(props: Props) {
   >(BookingDataService.delete);
 
   async function remove() {
-    await sendReq(rowData.flight_id);
+    await sendReq(rowData.flightId);
     dispatch(dataTableSliceActions.updateTable());
   }
 

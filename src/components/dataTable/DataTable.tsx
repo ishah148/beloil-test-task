@@ -84,7 +84,7 @@ export default function DataTable<T extends DataTableValue>({
         lazy
         header={tableHeader}
         // resizableColumns
-        dataKey="flight_id"
+        dataKey="flightId"
         paginator
         first={tableParams.first}
         rows={tableParams.rows}

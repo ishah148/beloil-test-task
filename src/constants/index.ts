@@ -1,5 +1,5 @@
 export const baseUrl = "";
-export const dateFiltersNames = ["departure_time", "checkin_time"];
+export const dateFiltersNames = ["departureTime", "checkinTime"];
 
 export const validationRules = {
   requiredValidationRule: {

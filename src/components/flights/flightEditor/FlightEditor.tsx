@@ -12,9 +12,9 @@ import { isEmpty } from "../../../utils/common.ts";
 import { flightBoardSliceActions } from "../../../store/flightBoard/flightBoardSlice.ts";
 
 type CellData = {
-  flight_id: string;
-  checkin_time: string;
-  departure_time: string;
+  flightId: string;
+  checkinTime: string;
+  departureTime: string;
 };
 
 type Props = {
@@ -40,10 +40,10 @@ const FlightEditor = (props: Props) => {
   );
 
   function setDefaultValues() {
-    const { flight_id, departure_time, checkin_time } = editorParams as CellData;
-    setValue("flight_id", flight_id);
-    setValue("departure_time", departure_time);
-    setValue("checkin_time", checkin_time);
+    const { flightId, departureTime, checkinTime } = editorParams as CellData;
+    setValue("flightId", flightId);
+    setValue("departureTime", departureTime);
+    setValue("checkinTime", checkinTime);
   }
 
   const {
@@ -100,13 +100,13 @@ const FlightEditor = (props: Props) => {
           <label>
             Дата и время вылета
             <br />
-            {hookFormErrors.departure_time && (
+            {hookFormErrors.departureTime && (
               <span className="invalid-validation">
-                {hookFormErrors.departure_time.message}
+                {hookFormErrors.departureTime.message}
               </span>
             )}
             <input
-              {...register("departure_time", {
+              {...register("departureTime", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -117,20 +117,20 @@ const FlightEditor = (props: Props) => {
           <label>
             Дата и время регистрации
             <br />
-            {hookFormErrors.checkin_time && (
+            {hookFormErrors.checkinTime && (
               <span className="invalid-validation">
-                {hookFormErrors.checkin_time.message}
+                {hookFormErrors.checkinTime.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
               type={"datetime-local"}
-              {...register("checkin_time", {
+              {...register("checkinTime", {
                 ...requiredValidationRule,
                 validate: () =>
                   Validator.validateRegisterDate(
-                    getValues("checkin_time"),
-                    getValues("departure_time"),
+                    getValues("checkinTime"),
+                    getValues("departureTime"),
                   ),
               })}
             />

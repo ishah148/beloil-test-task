@@ -71,13 +71,13 @@ const FlightCreator = (props: Props) => {
           <label>
             Номер рейса
             <br />
-            {hookFormErrors.flight_id && (
+            {hookFormErrors.flightId && (
               <span className="invalid-validation">
-                {hookFormErrors.flight_id.message}
+                {hookFormErrors.flightId.message}
               </span>
             )}
             <input
-              {...register("flight_id", {
+              {...register("flightId", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -106,13 +106,13 @@ const FlightCreator = (props: Props) => {
           <label>
             Дата и время вылета
             <br />
-            {hookFormErrors.departure_time && (
+            {hookFormErrors.departureTime && (
               <span className="invalid-validation">
-                {hookFormErrors.departure_time.message}
+                {hookFormErrors.departureTime.message}
               </span>
             )}
             <input
-              {...register("departure_time", {
+              {...register("departureTime", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -123,14 +123,14 @@ const FlightCreator = (props: Props) => {
           <label>
             Авиакомпания
             <br />
-            {hookFormErrors.airline_name && (
+            {hookFormErrors.airlineName && (
               <span className="invalid-validation">
-                {hookFormErrors.airline_name.message}
+                {hookFormErrors.airlineName.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
-              {...register("airline_name", {
+              {...register("airlineName", {
                 ...requiredValidationRule,
                 ...onlyStringValidationRule,
               })}
@@ -140,20 +140,20 @@ const FlightCreator = (props: Props) => {
           <label>
             Дата и время регистрации
             <br />
-            {hookFormErrors.checkin_time && (
+            {hookFormErrors.checkinTime && (
               <span className="invalid-validation">
-                {hookFormErrors.checkin_time.message}
+                {hookFormErrors.checkinTime.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
               type={"datetime-local"}
-              {...register("checkin_time", {
+              {...register("checkinTime", {
                 ...requiredValidationRule,
                 validate: () =>
                   Validator.validateRegisterDate(
-                    getValues("checkin_time"),
-                    getValues("departure_time"),
+                    getValues("checkinTime"),
+                    getValues("departureTime"),
                   ),
               })}
             />
@@ -162,15 +162,15 @@ const FlightCreator = (props: Props) => {
           <label>
             Количество мест
             <br />
-            {hookFormErrors.seat_capacity && (
+            {hookFormErrors.seatCapacity && (
               <span className="invalid-validation">
-                {hookFormErrors.seat_capacity.message}
+                {hookFormErrors.seatCapacity.message}
               </span>
             )}
             <input
               className="p-inputtext p-component"
               type={"number"}
-              {...register("seat_capacity", {
+              {...register("seatCapacity", {
                 ...requiredValidationRule,
                 min: {
                   value: 1,

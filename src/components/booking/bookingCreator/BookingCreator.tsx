@@ -67,13 +67,13 @@ const BookingCreator = (props: Props) => {
           <label>
             Номер рейса
             <br />
-            {hookFormErrors.flight_id && (
+            {hookFormErrors.flightId && (
               <span className="invalid-validation">
-                {hookFormErrors.flight_id.message}
+                {hookFormErrors.flightId.message}
               </span>
             )}
             <input
-              {...register("flight_id", {
+              {...register("flightId", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"
@@ -84,13 +84,13 @@ const BookingCreator = (props: Props) => {
           <label>
             Имя
             <br />
-            {hookFormErrors.first_name && (
+            {hookFormErrors.firstName && (
               <span className="invalid-validation">
-                {hookFormErrors.first_name.message}
+                {hookFormErrors.firstName.message}
               </span>
             )}
             <input
-              {...register("first_name", {
+              {...register("firstName", {
                 ...requiredValidationRule,
                 ...onlyStringValidationRule,
               })}
@@ -102,13 +102,13 @@ const BookingCreator = (props: Props) => {
           <label>
             Фамилия
             <br />
-            {hookFormErrors.last_name && (
+            {hookFormErrors.lastName && (
               <span className="invalid-validation">
-                {hookFormErrors.last_name.message}
+                {hookFormErrors.lastName.message}
               </span>
             )}
             <input
-              {...register("last_name", {
+              {...register("lastName", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"

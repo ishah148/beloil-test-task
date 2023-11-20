@@ -7,7 +7,7 @@ export const flightBoardConfig: ColumnConfig[] = [
     headerStyle: { width: "3rem" },
   },
   {
-    field: "flight_id",
+    field: "flightId",
     header: "Номер рейса",
     sortable: true,
     filter: true,
@@ -21,14 +21,14 @@ export const flightBoardConfig: ColumnConfig[] = [
     filterPlaceholder: "Город(Аэропорт)",
   },
   {
-    field: "airline_name",
+    field: "airlineName",
     sortable: true,
     header: "Авиакомпания",
     filter: true,
     filterPlaceholder: "Авиакомпания",
   },
   {
-    field: "departure_time",
+    field: "departureTime",
     sortable: true,
     header: "Дата и время вылета",
     filter: true,
@@ -37,7 +37,7 @@ export const flightBoardConfig: ColumnConfig[] = [
     filterElement: dateFilterTemplate,
   },
   {
-    field: "checkin_time",
+    field: "checkinTime",
     sortable: true,
     header: "Регистрация (до)",
     filter: true,
@@ -46,7 +46,7 @@ export const flightBoardConfig: ColumnConfig[] = [
     filterElement: dateFilterTemplate,
   },
   {
-    field: "seat_capacity",
+    field: "seatCapacity",
     sortable: true,
     header: "Кол-во мест",
     filter: true,

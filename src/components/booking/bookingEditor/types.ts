@@ -1,9 +1,9 @@
 export type BookingFieldsNames = {
-  flight_id: string;
-  first_name: string;
-  last_name: string;
+  flightId: string;
+  firstName: string;
+  lastName: string;
   surname: string;
-  booking_time: string;
-  seat_number: number;
+  bookingTime: string;
+  seatNumber: number;
   notes: string;
 };

@@ -23,7 +23,7 @@ function FlightBoardActionBar(props: Props) {
   );
 
   async function remove() {
-    await sendReq(rowData.flight_id);
+    await sendReq(rowData.flightId);
     dispatch(dataTableSliceActions.updateTable());
   }
 

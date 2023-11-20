@@ -1,20 +1,20 @@
 export interface FlightTableItem {
-  flight_id: string;
+  flightId: string;
   city: string;
-  departure_time: string;
-  airline_name: string;
-  checkin_time: string;
-  seat_capacity: number;
+  departureTime: string;
+  airlineName: string;
+  checkinTime: string;
+  seatCapacity: number;
   notes: string;
 }
 
 export interface BookingTableItem {
-  flight_id: string;
-  first_name: string;
-  last_name: string;
+  flightId: string;
+  firstName: string;
+  lastName: string;
   surname: string;
-  booking_time: string;
-  seat_number: number;
+  bookingTime: string;
+  seatNumber: number;
   notes: string;
 }
 
@@ -27,7 +27,7 @@ export interface ApiResponseError {
 export function isFlightTableData(data: unknown[]): data is FlightTableItem[] {
   //todo move
   if (!data || !data?.[0]) return false;
-  return (data as FlightTableItem[])?.[0]?.flight_id !== undefined;
+  return (data as FlightTableItem[])?.[0]?.flightId !== undefined;
 }
 
 export const isApiError = (

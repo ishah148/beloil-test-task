@@ -14,8 +14,8 @@ import { BookingFieldsNames } from "./types.ts";
 import { bookingBoardSliceActions } from "../../../store/bookingBoard/bookingBoardSlice.ts";
 
 type CellData = {
-  last_name: string;
-  first_name: string;
+  lastName: string;
+  firstName: string;
   surname: string;
 };
 
@@ -35,9 +35,9 @@ const BookingEditor = () => {
   );
 
   function setDefaultValues() {
-    const { first_name, last_name, surname } = editorParams as CellData;
-    setValue("first_name", first_name);
-    setValue("last_name", last_name);
+    const { firstName, lastName, surname } = editorParams as CellData;
+    setValue("firstName", firstName);
+    setValue("lastName", lastName);
     setValue("surname", surname);
   }
 
@@ -93,13 +93,13 @@ const BookingEditor = () => {
           <label>
             Имя
             <br />
-            {hookFormErrors.first_name && (
+            {hookFormErrors.firstName && (
               <span className="invalid-validation">
-                {hookFormErrors.first_name.message}
+                {hookFormErrors.firstName.message}
               </span>
             )}
             <input
-              {...register("first_name", {
+              {...register("firstName", {
                 ...requiredValidationRule,
                 ...onlyStringValidationRule,
               })}
@@ -111,13 +111,13 @@ const BookingEditor = () => {
           <label>
             Фамилия
             <br />
-            {hookFormErrors.last_name && (
+            {hookFormErrors.lastName && (
               <span className="invalid-validation">
-                {hookFormErrors.last_name.message}
+                {hookFormErrors.lastName.message}
               </span>
             )}
             <input
-              {...register("last_name", {
+              {...register("lastName", {
                 ...requiredValidationRule,
               })}
               className="p-inputtext p-component"

@@ -1,9 +1,19 @@
 export type FlightsFieldsNames = {
-  flight_id: string;
-  airline_name: string;
+  flightId: string;
+  airlineName: string;
   city: string;
-  departure_time: string;
-  checkin_time: string;
-  seat_capacity: string;
+  departureTime: string;
+  checkinTime: string;
+  seatCapacity: string;
+  notes: string;
+};
+
+export type newFlightsFieldsNames = {
+  flightId: string;
+  airlineName: string;
+  city: string;
+  departureTime: string;
+  checkinTime: string;
+  seatCapacity: string;
   notes: string;
 };

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { isAxiosError } from "axios";
+import { AxiosResponse, isAxiosError } from "axios";
 import { isApiError } from "../http";
 import { useAppDispatch } from "../store";
 import { notificationSliceActions } from "../store/notifications/notificationSlice.ts";
@@ -16,10 +16,11 @@ function useFetchData<T extends FunctionCb, D>(
   const [data, setData] = useState<D>([] as D);
   const [errorMsg, setErrorMsg] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [headers, setHeaders] = useState<AxiosResponse["headers"]>();
 
   async function sendReq(...args: Parameters<T>[] | Parameters<T>) {
     setLoading(true);
-    let response;
+    let response: AxiosResponse;
     try {
       response = await cb(...args);
     } catch (e) {
@@ -47,6 +48,7 @@ function useFetchData<T extends FunctionCb, D>(
 
     setSuccessNotification();
     setData(response.data);
+    setHeaders(response.headers);
   }
 
   function setErrorNotification(msg: string) {
@@ -76,6 +78,7 @@ function useFetchData<T extends FunctionCb, D>(
     errorMsg,
     sendReq,
     loading,
+    headers,
   };
 }
 
