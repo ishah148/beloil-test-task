@@ -5,7 +5,7 @@ import { BookingFieldsNames } from "../components/booking/bookingEditor/types.ts
 
 export class BookingDataService {
 
-  static async getFlightsData(
+  static async getBookingData(
       params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<BookingTableItem[] | ApiResponseError>(
@@ -14,14 +14,6 @@ export class BookingDataService {
     );
   }
 
-  static async getFlightsData(
-    params: Record<string, string | number | boolean | undefined | null>,
-  ) {
-    return $api.get<BookingTableItem[] | ApiResponseError>(
-      `src/services/mockBooking.json`,
-      { params },
-    );
-  }
   static async delete(id: string) {
     return $api.delete(`/booking/delete/${id}`);
   }

@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import TimeBoard from "../components/timeboard/TimeBoard.tsx";
 
 import { bookingBoardConfig } from "../components/dataTable/columns/bookingTableColumns.tsx";
@@ -21,9 +21,9 @@ const BookingBoard = () => {
   const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
   const { data, sendReq, loading } = useFetcher<
-    typeof BookingDataService.getFlightsData,
+    typeof BookingDataService.getBookingData,
     BookingTableItem[]
-  >(BookingDataService.getFlightsData);
+  >(BookingDataService.getBookingData);
 
   useEffect(() => {
     getFlightData(tableParams, filterParams);

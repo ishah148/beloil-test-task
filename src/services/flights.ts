@@ -24,14 +24,14 @@ export class FlightDataService {
     );
   }
   static async delete(id: string) {
-    return $api.delete(`/flight/delete/${id}`);
+    return $api.delete(`/flights/delete/${id}`);
   }
 
   static async edit(params: FlightsEditFieldsNames) {
-    return $api.patch(`/flight/edit/`, { params });
+    return $api.patch(`/flights/edit/`, { params });
   }
 
   static async create(params: FlightsFieldsNames) {
-    return $api.post("/flight/create", { params });
+    return $api.post("/flights/create", { params });
   }
 }

@@ -1,6 +1,7 @@
 import EditDialog from "../../ui/editDialog/EditDialog.tsx";
 import { Validator } from "../../../utils/validator.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { MouseEvent } from 'react';
 
 import { Button } from "primereact/button";
 import { useState } from "react";
@@ -32,6 +33,7 @@ const FlightCreator = (props: Props) => {
     handleSubmit,
     reset,
     getValues,
+    setValue,
     formState: { errors: hookFormErrors },
   } = useForm<FlightsFieldsNames>();
 
@@ -46,6 +48,27 @@ const FlightCreator = (props: Props) => {
     reset();
     setIsDialogVisible(false);
     props?.onCloseDialog?.();
+  }
+
+  function generate(e:  MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    // const mock = {
+    //   flightId: "SH-123",
+    //   city: "Гомель",
+    //   departureTime: "2023-11-20T14:55",
+    //   airlineName: "Белавия",
+    //   checkinTime: "2023-11-20T13:55",
+    //   seatCapacity: "22",
+    //   notes: "Можно без примечания",
+    // };
+
+    setValue("flightId", "SH-123");
+    setValue("city", "Гомель");
+    setValue("departureTime", "2023-11-20T14:55");
+    setValue("airlineName", "Белавия");
+    setValue("checkinTime", "2023-11-20T13:55");
+    setValue("seatCapacity", "22");
+    setValue("notes", "note");
   }
 
   const submit = handleSubmit(async (data) => {
@@ -84,7 +107,6 @@ const FlightCreator = (props: Props) => {
               type={"text"}
             />
           </label>
-
           <label>
             Город (Аэропорт)
             <br />
@@ -102,7 +124,6 @@ const FlightCreator = (props: Props) => {
               type={"text"}
             />
           </label>
-
           <label>
             Дата и время вылета
             <br />
@@ -119,7 +140,6 @@ const FlightCreator = (props: Props) => {
               type={"datetime-local"}
             />
           </label>
-
           <label>
             Авиакомпания
             <br />
@@ -136,7 +156,6 @@ const FlightCreator = (props: Props) => {
               })}
             />
           </label>
-
           <label>
             Дата и время регистрации
             <br />
@@ -158,7 +177,6 @@ const FlightCreator = (props: Props) => {
               })}
             />
           </label>
-
           <label>
             Количество мест
             <br />
@@ -183,7 +201,6 @@ const FlightCreator = (props: Props) => {
               })}
             />
           </label>
-
           <label>
             Примечания
             <br />
@@ -194,13 +211,16 @@ const FlightCreator = (props: Props) => {
             )}
             <input className="p-inputtext p-component" {...register("notes")} />
           </label>
-
           <Button
             className={"p-button text-center"}
             disabled={isSubmitBtnDisabled}
             loading={loading}
           >
             Создать
+          </Button>
+
+          <Button className={"p-button text-center ml-3"} onClick={(e) => generate(e)}>
+            Сгенерировать
           </Button>
         </form>
       </EditDialog>

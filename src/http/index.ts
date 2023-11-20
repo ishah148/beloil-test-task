@@ -21,6 +21,7 @@ export interface BookingTableItem {
 export interface ApiResponseError {
   //todo move
   error: string;
+  message: string;
   [key: string]: number | string | boolean;
 }
 

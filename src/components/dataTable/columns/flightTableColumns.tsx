@@ -1,6 +1,8 @@
 import FlightBoardActionBar from "../../flights/flightBoardActionBar/FlightBoardActionBar.tsx";
 import { dateFilterTemplate } from "../dateFilterTemplate.tsx";
 import { ColumnConfig } from "../DataTable.types.ts";
+import { Formatter } from "../../../utils/timeHelper.ts";
+import { FlightTableItem } from "../../../http";
 
 export const flightBoardConfig: ColumnConfig[] = [
   {
@@ -35,6 +37,13 @@ export const flightBoardConfig: ColumnConfig[] = [
     filterPlaceholder: "Дата и время вылета",
     dataType: "date",
     filterElement: dateFilterTemplate,
+    body: (rowData) => (
+      <p>
+        {Formatter.getReadableDataWithTime(
+          (rowData as FlightTableItem)?.departureTime,
+        )}
+      </p>
+    ),
   },
   {
     field: "checkinTime",
@@ -44,6 +53,13 @@ export const flightBoardConfig: ColumnConfig[] = [
     filterPlaceholder: "Регистрация (до)",
     dataType: "date",
     filterElement: dateFilterTemplate,
+    body: (rowData) => (
+        <p>
+          {Formatter.getReadableDataWithTime(
+              (rowData as FlightTableItem)?.departureTime,
+          )}
+        </p>
+    ),
   },
   {
     field: "seatCapacity",
@@ -59,11 +75,6 @@ export const flightBoardConfig: ColumnConfig[] = [
   {
     field: "actions",
     header: "Действия",
-    body: (rowData) => (
-      <FlightBoardActionBar
-        key={"city"}
-        rowData={rowData}
-      />
-    ),
+    body: (rowData) => <FlightBoardActionBar key={"city"} rowData={rowData} />,
   },
 ];

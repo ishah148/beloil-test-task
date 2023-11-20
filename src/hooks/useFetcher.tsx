@@ -18,17 +18,25 @@ function useFetchData<T extends FunctionCb, D>(
   const [loading, setLoading] = useState(false);
   const [headers, setHeaders] = useState<AxiosResponse["headers"]>();
 
+  const msg = "Ошибка сервера или проверьте правильность введенных дынных";
+
   async function sendReq(...args: Parameters<T>[] | Parameters<T>) {
     setLoading(true);
     let response: AxiosResponse;
     try {
       response = await cb(...args);
     } catch (e) {
-      const msg = "Что-то пошло не так или проверьте правильность введенных дынных";
-      if (isAxiosError(e) && !e?.response?.data) {
+      if (isAxiosError(e) && e?.response?.data) {
+        if (isApiError(e.response.data)) {
+          setErrorMsg(e.response.data.message);
+          setErrorNotification(e.response.data.message);
+          return;
+        }
+
         setErrorNotification(JSON.stringify(e.message));
         return;
       }
+
       setErrorNotification(msg);
       setErrorMsg(msg);
       return;
@@ -38,11 +46,6 @@ function useFetchData<T extends FunctionCb, D>(
 
     if (isAxiosError(response)) {
       setErrorNotification(JSON.stringify(response.message));
-      return;
-    }
-
-    if (isApiError(response?.data)) {
-      setErrorMsg(response.data.error);
       return;
     }
 
