@@ -2,7 +2,6 @@ import { FC, useEffect } from "react";
 
 import TimeBoard from "../components/timeboard/TimeBoard.tsx";
 
-
 import useFetcher from "../hooks/useFetcher.tsx";
 import { FlightTableItem } from "../http";
 import { FlightDataService } from "../services/flights.ts";
@@ -19,14 +18,12 @@ const FlightsBoard: FC = () => {
   const tableParams = useAppSelector((state) => state.dataTable.tableParams);
   const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
-  const { data, sendReq, loading } = useFetcher<
+  const { data, sendReq, loading, headers } = useFetcher<
     typeof FlightDataService.getFlightsData2,
     FlightTableItem[]
   >(FlightDataService.getFlightsData2);
 
-  useEffect(() => {
-
-  }, []);
+  console.log("headers", headers);
 
   useEffect(() => {
     getFlightData(tableParams, filterParams);
@@ -54,6 +51,7 @@ const FlightsBoard: FC = () => {
         data={data}
         loading={loading}
         tableConfig={flightBoardConfig}
+        totalRecords={headers?.["x-total-count"] || 10}
       />
     </main>
   );

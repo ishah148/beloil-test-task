@@ -22,6 +22,7 @@ type Props<T> = {
   onEdit?: (editData: Record<string, string>) => void;
   tableConfig: ColumnConfig[];
   name: TableNames;
+  totalRecords: number;
 };
 
 export default function DataTable<T extends DataTableValue>({
@@ -29,12 +30,13 @@ export default function DataTable<T extends DataTableValue>({
   loading,
   tableConfig,
   name,
+  totalRecords,
 }: Props<T>) {
   const dispatch = useAppDispatch();
   const tableParams = useAppSelector((state) => state.dataTable.tableParams);
   const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
-  const tableFirst = (tableParams.page - 1) * tableParams.rows ;
+  const tableFirst = (tableParams.page - 1) * tableParams.rows;
 
   useEffect(() => {
     resetFilters();
@@ -98,7 +100,7 @@ export default function DataTable<T extends DataTableValue>({
         paginator
         first={tableFirst}
         rows={tableParams.rows}
-        totalRecords={tableParams.totalRecords + 100}
+        totalRecords={totalRecords}
         onPage={onPage}
         onSort={onSort}
         onFilter={onFilter}

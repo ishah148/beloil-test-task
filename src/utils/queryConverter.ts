@@ -14,7 +14,7 @@ function getFilterQuery(params: Filters) {
       fieldValue = Formatter.getTimeMS(fieldValue).toString();
     }
     if (fieldValue) {
-      newParams[fieldName] = fieldValue;
+      newParams[fieldName] = fieldValue?.trim?.();
     }
   }
   return newParams;

@@ -1,7 +1,7 @@
 import EditDialog from "../../ui/editDialog/EditDialog.tsx";
 import { Validator } from "../../../utils/validator.ts";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { MouseEvent } from 'react';
+import { MouseEvent } from "react";
 
 import { Button } from "primereact/button";
 import { useState } from "react";
@@ -9,6 +9,10 @@ import useFetcher from "../../../hooks/useFetcher.tsx";
 import { FlightDataService } from "../../../services/flights.ts";
 import { validationRules } from "../../../constants";
 import { FlightsFieldsNames } from "./types.ts";
+import {
+  generateRandomString,
+  Generator,
+} from "../../../utils/randomStringGenerator.ts";
 
 type Props = {
   // isDialogVisible: boolean;
@@ -50,25 +54,16 @@ const FlightCreator = (props: Props) => {
     props?.onCloseDialog?.();
   }
 
-  function generate(e:  MouseEvent<HTMLButtonElement>) {
+  function generate(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    // const mock = {
-    //   flightId: "SH-123",
-    //   city: "Гомель",
-    //   departureTime: "2023-11-20T14:55",
-    //   airlineName: "Белавия",
-    //   checkinTime: "2023-11-20T13:55",
-    //   seatCapacity: "22",
-    //   notes: "Можно без примечания",
-    // };
 
-    setValue("flightId", "SH-123");
-    setValue("city", "Гомель");
+    setValue("flightId", `${generateRandomString(2)}-${generateRandomString(3)}`);
+    setValue("city", Generator.generateCity());
     setValue("departureTime", "2023-11-20T14:55");
-    setValue("airlineName", "Белавия");
+    setValue("airlineName", `авиа-${generateRandomString(2)}`);
     setValue("checkinTime", "2023-11-20T13:55");
-    setValue("seatCapacity", "22");
-    setValue("notes", "note");
+    setValue("seatCapacity", Generator.generateRandomNumber(99).toString());
+    setValue("notes", Generator.generateRandomString(10));
   }
 
   const submit = handleSubmit(async (data) => {
@@ -219,7 +214,10 @@ const FlightCreator = (props: Props) => {
             Создать
           </Button>
 
-          <Button className={"p-button text-center ml-3"} onClick={(e) => generate(e)}>
+          <Button
+            className={"p-button text-center ml-3"}
+            onClick={(e) => generate(e)}
+          >
             Сгенерировать
           </Button>
         </form>

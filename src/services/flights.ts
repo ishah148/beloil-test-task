@@ -28,10 +28,10 @@ export class FlightDataService {
   }
 
   static async edit(params: FlightsEditFieldsNames) {
-    return $api.patch(`/flights/edit/`, { params });
+    return $api.patch(`/flights/update`, { ...params });
   }
 
   static async create(params: FlightsFieldsNames) {
-    return $api.post("/flights/create", { params });
+    return $api.post("/flights/create", { ...params });
   }
 }

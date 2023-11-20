@@ -26,10 +26,11 @@ function useFetchData<T extends FunctionCb, D>(
     try {
       response = await cb(...args);
     } catch (e) {
-      if (isAxiosError(e) && e?.response?.data) {
-        if (isApiError(e.response.data)) {
-          setErrorMsg(e.response.data.message);
-          setErrorNotification(e.response.data.message);
+      if (isAxiosError(e)) {
+        const data = e?.response?.data;
+        if (isApiError(data)) {
+          setErrorMsg(data.message);
+          setErrorNotification(data.message || data.error);
           return;
         }
 

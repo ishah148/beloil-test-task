@@ -20,6 +20,8 @@ function FlightBoardActionBar(props: Props) {
     sendReq,
   } = useFetcher<typeof FlightDataService.delete, Record<string, string>>(
       FlightDataService.delete,
+      true,
+      "Удаление прошло успешно!"
   );
 
   async function remove() {

@@ -56,7 +56,7 @@ export const flightBoardConfig: ColumnConfig[] = [
     body: (rowData) => (
         <p>
           {Formatter.getReadableDataWithTime(
-              (rowData as FlightTableItem)?.departureTime,
+              (rowData as FlightTableItem)?.checkinTime,
           )}
         </p>
     ),

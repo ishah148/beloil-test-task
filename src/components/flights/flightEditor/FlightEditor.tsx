@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../../store";
 import { isEmpty } from "../../../utils/common.ts";
 import { flightBoardSliceActions } from "../../../store/flightBoard/flightBoardSlice.ts";
 import { Formatter } from "../../../utils/timeHelper.ts";
+import { dataTableSliceActions } from "../../../store/dataTable/dataTableSlice.ts";
 
 type CellData = {
   flightId: string;
@@ -34,11 +35,10 @@ const FlightEditor = (props: Props) => {
 
   const [isDialogVisible, setIsDialogVisible] = useState<boolean>(false);
 
-  const { loading, sendReq } = useFetcher<typeof FlightDataService.edit, unknown>(
-    FlightDataService.edit,
-    true,
-    successText,
-  );
+  const { loading, sendReq, errorMsg } = useFetcher<
+    typeof FlightDataService.edit,
+    unknown
+  >(FlightDataService.edit, true, successText);
 
   function setDefaultValues() {
     const { flightId, departureTime, checkinTime } = editorParams as CellData;
@@ -72,6 +72,9 @@ const FlightEditor = (props: Props) => {
 
   const submit = handleSubmit(async (data) => {
     await sendReq(data);
+    if (!errorMsg) {
+      dispatch(dataTableSliceActions.updateTable());
+    }
   });
 
   useEffect(() => {
@@ -91,7 +94,7 @@ const FlightEditor = (props: Props) => {
       <EditDialog
         isModalVisible={isDialogVisible}
         onCancel={closeDialog}
-        headerText="Добавление рейса"
+        headerText="Редактирование рейса"
       >
         <form
           className="dialog-form"
