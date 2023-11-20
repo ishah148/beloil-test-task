@@ -5,7 +5,7 @@ import { BookingFieldsNames } from "../components/booking/bookingEditor/types.ts
 
 export class BookingDataService {
 
-  static async getFlightsData2(
+  static async getFlightsData(
       params: Record<string, string | number | boolean | undefined | null>,
   ) {
     return $api.get<BookingTableItem[] | ApiResponseError>(

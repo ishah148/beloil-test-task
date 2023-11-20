@@ -2,24 +2,40 @@ import { dateFiltersNames } from "../constants";
 import { Formatter } from "./timeHelper.ts";
 import { Filters, TableParams } from "../components/dataTable/DataTable.types.ts";
 
+const excludedTableParams = ["first", "totalRecords","pageCount"];
+
 function getFilterQuery(params: Filters) {
   const newParams: Record<string, string> = {};
 
   for (const param in params) {
     const fieldName = param;
-    let value = params[param].value;
-    if (dateFiltersNames.includes(fieldName) && value) {
-      value = Formatter.getTimeMS(value).toString();
+    let fieldValue = params[param].value;
+    if (dateFiltersNames.includes(fieldName) && fieldValue) {
+      fieldValue = Formatter.getTimeMS(fieldValue).toString();
     }
-    if (value) {
-      newParams[fieldName] = value;
+    if (fieldValue) {
+      newParams[fieldName] = fieldValue;
     }
   }
   return newParams;
 }
 
 function getTableQuery(params: TableParams) {
-  return params;
+  const newParams: Partial<any> = {};
+
+  for (const param in params) {
+    const fieldName = param as keyof TableParams;
+    const fieldValue = params[fieldName];
+
+    if (excludedTableParams.includes(fieldName as string)) {
+      continue;
+    }
+    if (typeof fieldValue === "undefined") {
+      continue;
+    }
+    newParams[fieldName] = fieldValue;
+  }
+  return newParams;
 }
 
 export function getQuery(tableParams: TableParams, filterParams: Filters) {

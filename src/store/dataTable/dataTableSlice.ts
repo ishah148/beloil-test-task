@@ -20,7 +20,7 @@ interface State {
 const initialTableParams: TableParams = {
   first: 0,
   rows: 10,
-  limit: 0,
+  limit: 10,
   page: 1,
   pageCount: 10,
   totalRecords: 0,

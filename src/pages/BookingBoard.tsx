@@ -15,15 +15,15 @@ import BookingEditor from "../components/booking/bookingEditor/BookingEditor.tsx
 
 // import BookingCreator from "../components/bookingCreator/BookingCreator.tsx";
 
-const BookingBoard: FC = () => {
+const BookingBoard = () => {
   const updateKey = useAppSelector((state) => state.dataTable.updateTableKey);
   const tableParams = useAppSelector((state) => state.dataTable.tableParams);
   const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
   const { data, sendReq, loading } = useFetcher<
-    typeof BookingDataService.getFlightsData2,
+    typeof BookingDataService.getFlightsData,
     BookingTableItem[]
-  >(BookingDataService.getFlightsData2);
+  >(BookingDataService.getFlightsData);
 
   useEffect(() => {
     getFlightData(tableParams, filterParams);

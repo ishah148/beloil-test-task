@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { Button } from "primereact/button";
 import { ColumnConfig, TableNames } from "./DataTable.types.ts";
 import { getInitialFilters } from "./utils.ts";
-import {dataTableSliceActions} from "../../store/dataTable/dataTableSlice.ts";
+import { dataTableSliceActions } from "../../store/dataTable/dataTableSlice.ts";
 
 type Props<T> = {
   data: T[];
@@ -34,14 +34,24 @@ export default function DataTable<T extends DataTableValue>({
   const tableParams = useAppSelector((state) => state.dataTable.tableParams);
   const filterParams = useAppSelector((state) => state.dataTable.filterParams);
 
+  const tableFirst = (tableParams.page - 1) * tableParams.rows ;
+
   useEffect(() => {
     resetFilters();
     dispatch(dataTableSliceActions.setFilterParams(getInitialFilters(name)));
   }, []);
 
   const onPage = (event: DataTablePageEvent) => {
-    const { page, pageCount, rows } = event;
-    dispatch(dataTableSliceActions.setTableParams({ page, rows, pageCount }));
+    const { page = 1, pageCount, rows } = event;
+    dispatch(
+      dataTableSliceActions.setTableParams({
+        first: page * rows,
+        page: page + 1,
+        rows,
+        pageCount,
+        limit: rows,
+      }),
+    );
   };
 
   const onSort = (event: DataTableSortEvent) => {
@@ -86,7 +96,7 @@ export default function DataTable<T extends DataTableValue>({
         // resizableColumns
         dataKey="flightId"
         paginator
-        first={tableParams.first}
+        first={tableFirst}
         rows={tableParams.rows}
         totalRecords={tableParams.totalRecords + 100}
         onPage={onPage}

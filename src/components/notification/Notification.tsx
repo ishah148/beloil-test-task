@@ -10,11 +10,11 @@ const Notification = () => {
 
   useEffect(() => {
     if (notificationText) {
-      showWarn(notificationText, type);
+      show(notificationText, type);
       clear();
     }
   }, [notificationText, type]);
-  const showWarn = (
+  const show = (
     msg: string,
     type: "error" | "success" | "info" | "warn" | undefined,
   ) => {

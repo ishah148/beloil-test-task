@@ -10,6 +10,7 @@ import { validationRules } from "../../../constants";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { isEmpty } from "../../../utils/common.ts";
 import { flightBoardSliceActions } from "../../../store/flightBoard/flightBoardSlice.ts";
+import { Formatter } from "../../../utils/timeHelper.ts";
 
 type CellData = {
   flightId: string;
@@ -42,8 +43,8 @@ const FlightEditor = (props: Props) => {
   function setDefaultValues() {
     const { flightId, departureTime, checkinTime } = editorParams as CellData;
     setValue("flightId", flightId);
-    setValue("departureTime", departureTime);
-    setValue("checkinTime", checkinTime);
+    setValue("departureTime", Formatter.getTimeYYYYMMDDTHHMM(departureTime));
+    setValue("checkinTime", Formatter.getTimeYYYYMMDDTHHMM(checkinTime));
   }
 
   const {
